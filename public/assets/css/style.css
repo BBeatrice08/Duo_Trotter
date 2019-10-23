@@ -1,0 +1,36 @@
+.header-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px
+
+}
+
+.header-top h1 {
+    margin : 0 10px;
+}
+
+
+
+@media screen and (max-width: 575px) {
+    .searchbar {
+    display : none;
+    }
+
+    .header-top {
+        flex-direction: column;
+    }
+
+    .general-header {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .general-header .navbar {
+        justify-content: flex-end;
+    }
+
+}
+
+
+
