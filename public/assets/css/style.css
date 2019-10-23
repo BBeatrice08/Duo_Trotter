@@ -24,12 +24,35 @@
     .general-header {
         display: flex;
         flex-direction: column-reverse;
+        border-bottom-style: solid;
+        border-bottom: solid 1px black;
+        margin: 0 20px;
+        margin-bottom: 7%;
     }
 
     .general-header .navbar {
         justify-content: flex-end;
     }
+    .social-media .facebook, .pinterest, .instagram, .twitter{
+        height: 40px;
+        margin: 0 10px;
+    }
 
+    .biography {
+        margin: 7% 0;
+    }
+
+
+}
+
+@media screen and (min-width: 576px) {
+    .biography {
+        display: none;
+    }
+
+    .social-media .facebook, .pinterest, .instagram, .twitter{
+        display: none;
+    }
 }
 
 
