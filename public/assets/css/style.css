@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin : 0 20px 10px 20px;
 
+    margin : 0 20px 10px 20px;
 
 }
 
@@ -12,9 +12,41 @@
     font: 40px;
 }
 
+
+footer {
+    background-color: black;
+    border: solid black 1px;
+    border-radius: 4px;
+}
+
+.social-media-footer ul li {
+    list-style: none;
+}
+
+footer p, a, h5 {
+    color: white;
+}
+
+.facebook_footer, .pinterest_footer, .twitter_footer, .instagram_footer {
+    height: 40px;
+
+}
+
+.links {
+    margin-left: 8%;
+}
+
+.social-media-footer {
+    display: flex;
+    flex-direction: row;
+    margin: 0 15%;
+}
+
+
 .logo {
     height : 250px;
 }
+
 
 @media screen and (max-width: 575px) {
     .searchbar {
@@ -42,13 +74,12 @@
     .social-media .facebook, .pinterest, .instagram, .twitter{
         height: 40px;
         margin: 0 10px;
+
     }
 
     .biography {
         margin: 7% 0;
     }
-
-
 }
 
 @media screen and (min-width: 576px) {
