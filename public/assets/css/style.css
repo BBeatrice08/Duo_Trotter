@@ -9,10 +9,33 @@
     margin : 0 10px;
 }
 
+footer {
+    background-color: black;
+    border: solid black 1px;
+    border-radius: 4px;
+}
+
+.social-media-footer ul li {
+    list-style: none;
+}
+
+footer p, a, h5 {
+    color: white;
+}
+
 .facebook_footer, .pinterest_footer, .twitter_footer, .instagram_footer {
-    width: 40px;
+    height: 40px;
+
+}
+
+.links {
+    margin-left: 8%;
+}
+
+.social-media-footer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin: 0 15%;
 }
 
 
@@ -45,13 +68,6 @@
     .biography {
         margin: 7% 0;
     }
-
-    .social-media-footer ul{
-        display: flex;
-        flex-direction: row;
-    }
-
-
 }
 
 @media screen and (min-width: 576px) {
