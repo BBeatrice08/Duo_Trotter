@@ -2,15 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 40px
+    margin : 0 20px 10px 20px;
+
 
 }
 
 .header-top h1 {
     margin : 0 10px;
+    font: 40px;
 }
 
-
+.logo {
+    height : 250px;
+}
 
 @media screen and (max-width: 575px) {
     .searchbar {
@@ -21,12 +25,14 @@
         flex-direction: column;
     }
 
+    .header-top h1{
+        margin-bottom: 7%
+    }
+
     .general-header {
         display: flex;
         flex-direction: column-reverse;
-        border-bottom-style: solid;
         border-bottom: solid 1px black;
-        margin: 0 20px;
         margin-bottom: 7%;
     }
 
