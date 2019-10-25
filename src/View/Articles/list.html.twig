@@ -9,7 +9,9 @@
     {% for article in articles %}
         <div class = "article">
         <h2>{{ article.title }}</h2>
-        <img src="{{ article.image }}">
+            <div class = "img-container">
+                <img src="{{ article.image }}" class ="image">
+            </div>
         <p>{{ article.date }}</p>
         <p>{{ article.content }}</p>
         <button type="submit" class="btn btn-warning text-white">Lire</button>
