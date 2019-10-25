@@ -17,7 +17,7 @@ class ArticlesController extends AbstractController
 
     public function add()
     {
-        var_dump($_POST);
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -35,11 +35,11 @@ class ArticlesController extends AbstractController
                 if ($articlesManager->insertArticle($_POST)) {
                     header("Location:/articles/list");
                 }
-
             }
         }
         return $this->twig->render("Articles/add.html.twig");
     }
+}
 
 
 /*    public function edit(int $id)
@@ -51,5 +51,3 @@ class ArticlesController extends AbstractController
     {
         die("delete article number $id");
     }*/
-
-}

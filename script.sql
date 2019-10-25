@@ -27,6 +27,7 @@ CREATE TABLE countries (
 CREATE TABLE articles (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL ,
+    image VARCHAR(255),
     date DATE,
     content MEDIUMTEXT,
     categories_id INT,
