@@ -2,4 +2,9 @@
 
 {% block content %}
     <h2>Derniers articles</h2>
+    {% for article in articles %}
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.date }}</p>
+        <p>{{ article.content }}</p>
+    {% endfor %}
 {% endblock %}
