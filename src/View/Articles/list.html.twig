@@ -1,13 +1,20 @@
 {% extends "layout.html.twig" %}
 
 
-{% block title %}Articles List{% endblock %}
+{% block title %}Derniers Articles{% endblock %}
 
 {% block content %}
-    <h1>Articles list</h1>
+    <div class = "main-articles" >
+    <h1>Derniers Articles</h1>
     {% for article in articles %}
+        <div class = "article">
         <h2>{{ article.title }}</h2>
+        <img src="{{ article.image }}">
         <p>{{ article.date }}</p>
         <p>{{ article.content }}</p>
+        <button type="submit" class="btn btn-warning text-white">Lire</button>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}
+

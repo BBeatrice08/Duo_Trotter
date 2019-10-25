@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-sm navbar-light bg-white">
+    <nav class="navbar navbar-expand-sm navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,7 +31,11 @@
                         Destinations
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="{% for article in articles %}
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.date }}</p>
+        <p>{{ article.content }}</p>
+    {% endfor %}"></a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
