@@ -31,13 +31,16 @@ class ArticlesController extends AbstractController
             }
             if ($send) {
                 $articlesManager = new ArticlesManager();
+
                 if ($articlesManager->insertArticle($_POST)) {
                     header("Location:/articles/list");
                 }
+
             }
         }
         return $this->twig->render("Articles/add.html.twig");
     }
+
 
 /*    public function edit(int $id)
     {
@@ -48,4 +51,5 @@ class ArticlesController extends AbstractController
     {
         die("delete article number $id");
     }*/
+
 }

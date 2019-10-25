@@ -13,6 +13,7 @@ class ArticlesManager extends AbstractManager
 
     public function insertArticle(array $article)
     {
+
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (title, image, date, content) VALUES 
         (:title, :image, :date, :content)");
         $request->bindValue(":title", $article["article_title"], \PDO::PARAM_STR);

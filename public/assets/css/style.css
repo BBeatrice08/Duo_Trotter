@@ -56,7 +56,6 @@ footer p, a, h5 {
 
 .facebook_footer, .pinterest_footer, .twitter_footer, .instagram_footer {
     height: 40px;
-
 }
 
 .links {
@@ -66,7 +65,10 @@ footer p, a, h5 {
 .social-media-footer {
     display: flex;
     flex-direction: row;
-    margin: 0 15%;
+}
+
+.social-media-footer a {
+    margin: 4%;
 }
 
 
@@ -106,6 +108,13 @@ footer p, a, h5 {
     .biography {
         margin: 7% 0;
     }
+
+    .social-media-footer {
+        flex-direction: column;
+        margin-left : 30%;
+    }
+
+
 }
 
 @media screen and (min-width: 576px) {
@@ -115,6 +124,16 @@ footer p, a, h5 {
 
     .social-media .facebook, .pinterest, .instagram, .twitter{
         display: none;
+    }
+
+    .row {
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .social-media-footer {
+        margin: 5% 15% 0% 25%;
     }
 }
 
