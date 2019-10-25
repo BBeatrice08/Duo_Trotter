@@ -22,7 +22,7 @@ class HomeController extends AbstractController
      * @throws \Twig\Error\SyntaxError
      */
     public function index()
-    {   
+    {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAll();
         return $this->twig->render('Home/index.html.twig', [
