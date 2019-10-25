@@ -51,6 +51,12 @@ abstract class AbstractManager
         return $this->pdo->query('SELECT * FROM ' . $this->table)->fetchAll();
     }
 
+    /** Get all row from database by order */
+    public function selectAllByDate(): array
+    {
+        return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY date DESC')->fetchAll();
+    }
+
     /**
      * Get one row from database by ID.
      *

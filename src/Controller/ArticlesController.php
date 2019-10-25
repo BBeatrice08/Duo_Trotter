@@ -9,7 +9,7 @@ class ArticlesController extends AbstractController
     public function list(): string
     {
         $articlesManager = new ArticlesManager();
-        $articles = $articlesManager->selectAll();
+        $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("Articles/list.html.twig", [
             "articles" => $articles,
         ]);
@@ -31,10 +31,25 @@ class ArticlesController extends AbstractController
             }
             if ($send) {
                 $articlesManager = new ArticlesManager();
-                $articlesManager->insertArticle($_POST);
-                header("Location:/articles/list");
+
+                if ($articlesManager->insertArticle($_POST)) {
+                    header("Location:/articles/list");
+                }
+
             }
         }
         return $this->twig->render("Articles/add.html.twig");
     }
+
+
+/*    public function edit(int $id)
+    {
+        die("edit article number $id");
+    }
+
+    public function delete(int $id)
+    {
+        die("delete article number $id");
+    }*/
+
 }

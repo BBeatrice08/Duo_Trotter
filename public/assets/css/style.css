@@ -1,18 +1,45 @@
+. {
+    font-family: 'Roboto', sans-serif;
+}
+
+.image {
+    height : auto;
+    width: 100%;
+}
+
+.img-container {
+    width : 90%
+}
+
 .header-top {
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin : 0 20px 10px 20px;
-
 }
 
-.header-top h1 {
-    margin : 0 10px;
-    font: 40px;
+.article {
+    background-color: #E5EEF2;
+    text-align: center;
+    border-radius: 15px;
+    margin: 20px 0 40px 0;
+    padding: 0 14px 0 14px;
 }
 
 
+
+.main-articles {
+    display: flex;
+    flex-direction: column;
+}
+
+.article h2 {
+    color : black;
+}
+
+.navbar {
+    background-color: #085ea5;
+}
 footer {
     background-color: black;
     border: solid black 1px;
@@ -76,7 +103,6 @@ footer p, a, h5 {
     .social-media .facebook, .pinterest, .instagram, .twitter{
         height: 40px;
         margin: 0 10px;
-
     }
 
     .biography {
