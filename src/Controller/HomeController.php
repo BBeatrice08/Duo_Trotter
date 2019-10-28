@@ -8,6 +8,8 @@
 
 namespace App\Controller;
 
+use App\Model\ArticlesManager;
+
 class HomeController extends AbstractController
 {
 
@@ -21,6 +23,10 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectAll();
+        return $this->twig->render('Home/index.html.twig', [
+            "articles" => $articles,
+        ]);
     }
 }
