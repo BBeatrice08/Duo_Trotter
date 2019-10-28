@@ -17,7 +17,6 @@ class ArticlesController extends AbstractController
 
     public function add()
     {
-
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
