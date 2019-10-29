@@ -25,7 +25,7 @@ class HomeController extends AbstractController
     {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAll();
-        return $this->twig->render('Home/index.html.twig', [
+        return $this->twig->render('Articles/list.html.twig', [
             "articles" => $articles,
         ]);
     }

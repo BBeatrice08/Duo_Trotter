@@ -1,16 +1,22 @@
-{% extends "layout.html.twig" %}
+{% extends "adminlayout.html.twig" %}
 
-{% block title %}List Articles{% endblock %}
+{% block title %}Liste des articles{% endblock %}
 
 {% block content %}
 
-    <h1>List Articles</h1>
-
-<ul>
     {% for article in articles %}
-        <li> {{ article.title }} </li>
-        <li> {{ article.date }} </li>
+        <div class = main-container-admin>
+            <div class = main-container-admin-1>
+                {{ article.date }}
+                {{ article.title }}
+            </div>
+
+            <div class = main-container-admin-2>
+                <button type="button" class="btn btn-primary">Editer</button>
+                <button type="button" class="btn btn-danger">Supprimer</button>
+            </div>
+
+        </div>
     {% endfor %}
-</ul>
 
 {% endblock %}
