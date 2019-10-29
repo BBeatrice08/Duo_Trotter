@@ -14,4 +14,21 @@ class AdminController extends AbstractController
             "articles" => $articles,
         ]);
     }
+
+ /*
+    public function articlesAdd(): string
+    {
+
+    }
+
+    public function articlesEdit(): string
+    {
+
+    }
+
+    public function articlesDelete(): string
+    {
+
+    }
+ */
 }
