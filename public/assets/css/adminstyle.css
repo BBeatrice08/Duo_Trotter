@@ -1,0 +1,27 @@
+.navbar {
+    background-color: #085ea5;
+}
+
+.main-container-admin{
+    display: flex;
+    flex-direction: row;
+    border : 1px solid grey;
+    padding: 4px 0;
+    justify-content: space-between;
+}
+
+.main-container-admin-1{
+    margin : 3px 6px;
+    font-size: 15px;
+}
+
+.main-container-admin-2{
+    margin : 3px 6px;
+}
+
+@media screen and (max-width: 720px) {
+    .main-container-admin {
+        display: flex;
+        flex-direction: column
+    }
+}
