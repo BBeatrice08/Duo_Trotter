@@ -3,25 +3,34 @@
 
 namespace App\Controller;
 
-use App\Model\ArticlesManager;
+use App\Model\AdminManager;
 
 class AdminController extends AbstractController
 {
-
-    /**
-     * Display admin page
-     *
-     * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function articlesList()
+    public function articlesList(): string
     {
-        $articlesManager = new ArticlesManager();
+        $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
-        return $this->twig->render("Admin/admin_list.html.twig", [
+        return $this->twig->render("Admin/articles_list.html.twig", [
             "articles" => $articles,
         ]);
     }
+
+ /*
+    public function articlesAdd(): string
+    {
+
+    }
+
+    public function articlesEdit(): string
+    {
+
+    }
+
+    public function articlesDelete(): string
+    {
+
+    }
+ */
+
 }
