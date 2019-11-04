@@ -104,4 +104,11 @@ class AdminController extends AbstractController
 
         return $this->twig->render('Admin/categories_edit.html.twig', ['categories' => $categories]);
     }
+
+    public function categoriesDelete($id)
+    {
+        $categoriesManager = new CategoriesManager();
+        $categoriesManager->delete($id);
+        header('Location:/Admin/categoriesList');
+    }
 }
