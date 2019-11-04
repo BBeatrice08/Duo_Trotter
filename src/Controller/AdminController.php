@@ -5,10 +5,11 @@ namespace App\Controller;
 
 use App\Model\AdminManager;
 use App\Model\ArticlesManager;
+use App\Model\CategoriesManager;
 
 class AdminController extends AbstractController
 {
-    public function articlesList(): string
+    public function articlesList()
     {
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
@@ -17,7 +18,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function articlesadd()
+    public function articlesAdd()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
@@ -40,6 +41,8 @@ class AdminController extends AbstractController
         }
         return $this->twig->render("Admin/articles_add.html.twig");
     }
+
+    
 /**
     public function articlesEdit(): string
     {
@@ -51,4 +54,31 @@ class AdminController extends AbstractController
 
     }
  **/
+
+    public function categoriesList()
+    {
+        $categoriesManager = new CategoriesManager();
+        $categories = $categoriesManager->selectAll();
+        return $this->twig->render("Admin/categories_list.html.twig", [
+            "categories" => $categories,
+        ]);
+    }
+
+    public function categoriesAdd()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $send = true;
+            if (empty($_POST["category_name"]) || !isset($_POST["category_name"])) {
+                $send = false;
+            }
+            if ($send) {
+                $categoriesManager = new CategoriesManager();
+
+                if ($categoriesManager->insertCategory($_POST)) {
+                    header("Location:/Admin/categoriesList");
+                }
+            }
+        }
+        return $this->twig->render("Admin/categories_add.html.twig");
+    }
 }
