@@ -81,4 +81,27 @@ class AdminController extends AbstractController
         }
         return $this->twig->render("Admin/categories_add.html.twig");
     }
+
+    public function categoriesEdit($id)
+    {
+        $categoriesManager = new CategoriesManager();
+        $categories = $categoriesManager->selectOneById($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $send = true;
+            if (empty($_POST["category_name"]) || !isset($_POST["category_name"])) {
+                $send = false;
+            } else {
+                $categories['name'] = $_POST["category_name"];
+            }
+
+            $categories['id'] = $_POST["category_id"];
+
+            if ($send) {
+                $categoriesManager->update($categories);
+                header("Location:/Admin/categoriesList");
+            }
+        }
+
+        return $this->twig->render('Admin/categories_edit.html.twig', ['categories' => $categories]);
+    }
 }

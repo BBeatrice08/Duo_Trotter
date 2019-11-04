@@ -20,4 +20,14 @@ class CategoriesManager extends AbstractManager
 
         return $request->execute();
     }
+
+    public function update(array $categories):bool
+    {
+
+        $statement = $this->pdo->prepare("UPDATE $this->table SET `name` = :name WHERE id=:id");
+        $statement->bindValue('id', $categories['id'], \PDO::PARAM_INT);
+        $statement->bindValue('name', $categories['name'], \PDO::PARAM_STR);
+
+        return $statement->execute();
+    }
 }
