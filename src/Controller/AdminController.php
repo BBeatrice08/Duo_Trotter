@@ -47,14 +47,70 @@ class AdminController extends AbstractController
         ]);
     }
 
-    
-/**
-    public function articlesEdit(): string
-    {
 
+    public function articlesEdit($id)
+    {
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectOneById($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $send = true;
+            if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
+                $send = false;
+            } else {
+                $articles['title'] = $_POST["article_title"];
+            }
+
+            if (empty($_POST["article_id"]) || !isset($_POST["article_id"])) {
+                $send = false;
+            } else {
+                $articles['id'] = $_POST["article_id"];
+            }
+
+
+            if (empty($_POST["article_image"]) || !isset($_POST["article_image"])) {
+                $send = false;
+            } else {
+                $articles['image'] = $_POST["article_image"];
+            }
+
+            if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
+                $send = false;
+            } else {
+                $articles['date'] = $_POST["article_date"];
+            }
+
+            if (empty($_POST["article_category"]) || !isset($_POST["article_category"])) {
+                $send = false;
+            } else {
+                $articles['category'] = $_POST["article_category"];
+            }
+
+            if (empty($_POST["article_country"]) || !isset($_POST["article_country"])) {
+                $send = false;
+            } else {
+                $articles['country'] = $_POST["article_country"];
+            }
+
+            if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
+                $send = false;
+            } else {
+                $articles['content'] = $_POST["article_content"];
+            }
+
+            $articles['id'] = $_POST["article_id"];
+
+            if ($send) {
+                $articlesManager->updateArticle($articles);
+                header("Location:/Admin/articlesList");
+            }
+        }
+
+        return $this->twig->render('Admin/articles_edit.html.twig', ['articles' => $articles,
+            "countries" => $this->getCountries(),
+            "categories" => $this->getCategories(),
+            ]);
     }
 
-**/
 
     public function articlesDelete($id): void
     {
