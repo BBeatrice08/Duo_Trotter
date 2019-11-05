@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Model\CategoriesManager;
+use App\Model\ContinentsManager;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -46,5 +47,12 @@ abstract class AbstractController
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
         return $categories;
+    }
+
+    public function continentsList()
+    {
+        $continentsManager = new ContinentsManager();
+        $continents = $continentsManager->selectAll();
+        return $continents;
     }
 }

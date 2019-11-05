@@ -13,6 +13,7 @@ class ArticlesController extends AbstractController
         return $this->twig->render("Articles/list.html.twig", [
             "articles" => $articles,
             "categories" => $this->categoriesList(),
+            "continents" => $this->continentsList(),
         ]);
     }
 }

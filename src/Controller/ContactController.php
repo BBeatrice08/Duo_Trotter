@@ -8,6 +8,7 @@ class ContactController extends AbstractController
     {
         return $this->twig->render('Home/contact.html.twig', [
             "categories" => $this->categoriesList(),
+            "continents" => $this->continentsList(),
         ]);
     }
 }

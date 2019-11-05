@@ -8,6 +8,7 @@ class AboutController extends AbstractController
     {
         return $this->twig->render('Home/about.html.twig', [
                 "categories" => $this->categoriesList(),
+                "continents" => $this->continentsList(),
             ]);
     }
 }
