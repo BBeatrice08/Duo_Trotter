@@ -40,15 +40,19 @@ class AdminController extends AbstractController
         }
         return $this->twig->render("Admin/articles_add.html.twig");
     }
-/**
+
+    /*
     public function articlesEdit(): string
     {
-
+        $articlesManager = new AdminManager();
+        $articles = $articlesManager->selectAllByDate();
+        return $this->twig->render("Admin/articles_edit.html.twig");
     }
-
+    **
+    /**
     public function articlesDelete(): string
     {
 
     }
- **/
+    **/
 }
