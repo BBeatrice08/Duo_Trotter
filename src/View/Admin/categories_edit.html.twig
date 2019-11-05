@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <form action="" method="POST" style="display:flex; flex-direction:column;">
+        <label for="name">Entrez le nom de la catégorie</label>
+        <input type="hidden" value="{{ categories.id }}" name="category_id" id="id">
+        <input type="text" name="category_name" id="name" placeholder="Entrez le nom de la catégorie" value="{{ categories.name }}">
+        <input type="submit" value="Modifier">
+    </form>
+{% endblock %}
+

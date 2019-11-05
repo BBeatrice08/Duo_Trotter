@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use App\Model\CategoriesManager;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -38,5 +39,12 @@ abstract class AbstractController
             ]
         );
         $this->twig->addExtension(new DebugExtension());
+    }
+
+    public function categoriesList()
+    {
+        $categoriesManager = new CategoriesManager();
+        $categories = $categoriesManager->selectAll();
+        return $categories;
     }
 }

@@ -12,6 +12,7 @@ class ArticlesController extends AbstractController
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("Articles/list.html.twig", [
             "articles" => $articles,
+            "categories" => $this->categoriesList(),
         ]);
     }
 }
