@@ -13,7 +13,7 @@ class ArticlesManager extends AbstractManager
 
     public function insertArticle(array $article)
     {
-
+        
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (title, image, date, content) VALUES 
         (:title, :image, :date, :content)");
         $request->bindValue(":title", $article["article_title"], \PDO::PARAM_STR);
@@ -22,6 +22,21 @@ class ArticlesManager extends AbstractManager
         $request->bindValue(":content", $article["article_content"], \PDO::PARAM_STR);
         
         return $request->execute();
+    }
+
+    public function updateArticle(array $articles):bool
+    {
+
+        $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title, `image` = :image, `date` =:date, `content` = :content, `categories_id` =:categories_id, `countries_id` = :countries_id WHERE id=:id");
+        $statement->bindValue('id', $articles['id'], \PDO::PARAM_INT);
+        $statement->bindValue('title', $articles['title'], \PDO::PARAM_STR);
+        $statement->bindValue('image', $articles['image'], \PDO::PARAM_STR);
+        $statement->bindValue('date', $articles['date'], \PDO::PARAM_STR);
+        $statement->bindValue('content', $articles['content'], \PDO::PARAM_STR);
+        $statement->bindValue('categories_id', $articles['categories_id'], \PDO::PARAM_INT);
+        $statement->bindValue('countries_id', $articles['countries_id'], \PDO::PARAM_INT);
+
+        return $statement->execute();
     }
 
     public function deleteArticle(int $id): void

@@ -12,7 +12,7 @@
             </div>
 
             <div class = main-container-admin-2>
-                <button type="button" class="btn btn-primary">Editer</button>
+                <a href="{{ "/admin/articlesEdit/" ~ article.id }}"><button type="button" class="btn btn-primary">Editer</button></a>
                 <a href="{{ "/admin/articlesDelete/" ~ article.id }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
             </div>
 
