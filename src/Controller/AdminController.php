@@ -28,6 +28,7 @@ class AdminController extends AbstractController
             if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
                 $send = false;
             }
+
             if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
                 $send = false;
             }
@@ -49,11 +50,16 @@ class AdminController extends AbstractController
 
     }
 
-    public function articlesDelete(): string
-    {
+**/
 
+    public function articlesDelete($id): void
+    {
+        $articlesManager = new ArticlesManager();
+        $articlesManager->deleteArticle($id);
+        header('Location:/Admin/articlesList');
+        //return $this->twig->render("Admin/articlesList");
     }
- **/
+
 
     public function categoriesList()
     {
