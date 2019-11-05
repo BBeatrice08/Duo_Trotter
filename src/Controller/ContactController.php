@@ -6,6 +6,8 @@ class ContactController extends AbstractController
 {
     public function index()
     {
-        return $this->twig->render('Home/contact.html.twig');
+        return $this->twig->render('Home/contact.html.twig', [
+            "categories" => $this->categoriesList(),
+        ]);
     }
 }
