@@ -10,6 +10,18 @@
         <input type="text" name="article_image" id="image" placeholder="Insérez une image">
         <label for="date">Entrez la date</label>
         <input type="date" name="article_date" id="date">
+        <label for="category">Sélectionnez une catégorie pour cet article</label>
+        <select name="article_category" id="category">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="country">Sélectionnez un pays pour cet article</label>
+        <select name="article_country" id="country">
+            {% for country in countries %}
+                <option value="{{ country.id }}">{{ country.name }}</option>
+            {% endfor %}
+        </select>
         <label for="content">Entrez le contenu de l'article</label>
         <textarea rows="10" name="article_content" id="content" placeholder="Entrez le contenu de l'article"></textarea>
         <input type="submit" value="Ajouter">

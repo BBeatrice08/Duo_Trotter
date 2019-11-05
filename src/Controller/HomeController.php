@@ -27,8 +27,8 @@ class HomeController extends AbstractController
         $articles = $articlesManager->selectAll();
         return $this->twig->render('Articles/list.html.twig', [
             "articles" => $articles,
-            "categories" => $this->categoriesList(),
-            "continents" => $this->continentsList(),
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
         ]);
     }
 }

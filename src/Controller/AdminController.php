@@ -39,7 +39,11 @@ class AdminController extends AbstractController
                 }
             }
         }
-        return $this->twig->render("Admin/articles_add.html.twig");
+        /*var_dump($this->getCountries());*/
+        return $this->twig->render("Admin/articles_add.html.twig", [
+            "categories" => $this->getCategories(),
+            "countries" => $this->getCountries(),
+        ]);
     }
 
     
