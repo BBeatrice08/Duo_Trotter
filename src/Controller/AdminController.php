@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\AdminManager;
 use App\Model\ArticlesManager;
 use App\Model\CategoriesManager;
+use App\Model\CommentsManager;
 
 class AdminController extends AbstractController
 {
@@ -176,5 +177,14 @@ class AdminController extends AbstractController
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
+    }
+
+    public function commentsList()
+    {
+        $commentsManager = new CommentsManager();
+        $comments = $commentsManager->selectAll();
+        return $this->twig->render("/Admin/comments_list.html.twig", [
+            "comments" => $comments,
+        ]);
     }
 }
