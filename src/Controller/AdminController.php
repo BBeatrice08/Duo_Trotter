@@ -13,7 +13,7 @@ class AdminController extends AbstractController
     {
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
-        return $this->twig->render("Admin/articles_list.html.twig", [
+        return $this->twig->render("/Admin/articles_list.html.twig", [
             "articles" => $articles,
         ]);
     }
@@ -41,7 +41,7 @@ class AdminController extends AbstractController
             }
         }
         /*var_dump($this->getCountries());*/
-        return $this->twig->render("Admin/articles_add.html.twig", [
+        return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
         ]);
@@ -69,7 +69,7 @@ class AdminController extends AbstractController
     {
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
-        return $this->twig->render("Admin/categories_list.html.twig", [
+        return $this->twig->render("/Admin/categories_list.html.twig", [
             "categories" => $categories,
         ]);
     }
@@ -89,7 +89,7 @@ class AdminController extends AbstractController
                 }
             }
         }
-        return $this->twig->render("Admin/categories_add.html.twig");
+        return $this->twig->render("/Admin/categories_add.html.twig");
     }
 
     public function categoriesEdit($id)
@@ -112,7 +112,7 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->twig->render('Admin/categories_edit.html.twig', ['categories' => $categories]);
+        return $this->twig->render('/Admin/categories_edit.html.twig', ['categories' => $categories]);
     }
 
     public function categoriesDelete($id)
