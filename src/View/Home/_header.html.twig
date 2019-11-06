@@ -32,7 +32,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for continent in continents %}
-                            <a class="dropdown-item" href="#">{{ continent.name }}</a>
+                            <a class="dropdown-item" href="{{ "/countries/list/" ~ continent.id }}">{{ continent.name }}</a>
                         {% endfor %}
                     </div>
                 </li>
