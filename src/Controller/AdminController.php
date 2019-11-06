@@ -13,7 +13,7 @@ class AdminController extends AbstractController
     {
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
-        return $this->twig->render("Admin/articles_list.html.twig", [
+        return $this->twig->render("/Admin/articles_list.html.twig", [
             "articles" => $articles,
         ]);
     }
@@ -28,6 +28,7 @@ class AdminController extends AbstractController
             if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
                 $send = false;
             }
+
             if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
                 $send = false;
             }
@@ -39,31 +40,90 @@ class AdminController extends AbstractController
                 }
             }
         }
-        return $this->twig->render("Admin/articles_add.html.twig");
+        /*var_dump($this->getCountries());*/
+        return $this->twig->render("/Admin/articles_add.html.twig", [
+            "categories" => $this->getCategories(),
+            "countries" => $this->getCountries(),
+        ]);
     }
 
-
-/**
-    public function articlesEdit(): string
+    public function articlesEdit($id)
     {
-        $articlesManager = new AdminManager();
-        $articles = $articlesManager->selectAllByDate();
-        return $this->twig->render("Admin/articles_edit.html.twig");
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectOneById($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $send = true;
+            if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
+                $send = false;
+            } else {
+                $articles['title'] = $_POST["article_title"];
+            }
+
+            if (empty($_POST["article_id"]) || !isset($_POST["article_id"])) {
+                $send = false;
+            } else {
+                $articles['id'] = $_POST["article_id"];
+            }
+
+
+            if (empty($_POST["article_image"]) || !isset($_POST["article_image"])) {
+                $send = false;
+            } else {
+                $articles['image'] = $_POST["article_image"];
+            }
+
+            if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
+                $send = false;
+            } else {
+                $articles['date'] = $_POST["article_date"];
+            }
+
+            if (empty($_POST["article_category"]) || !isset($_POST["article_category"])) {
+                $send = false;
+            } else {
+                $articles['category'] = $_POST["article_category"];
+            }
+
+            if (empty($_POST["article_country"]) || !isset($_POST["article_country"])) {
+                $send = false;
+            } else {
+                $articles['country'] = $_POST["article_country"];
+            }
+
+            if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
+                $send = false;
+            } else {
+                $articles['content'] = $_POST["article_content"];
+            }
+
+            $articles['id'] = $_POST["article_id"];
+
+            if ($send) {
+                $articlesManager->updateArticle($articles);
+                header("Location:/Admin/articlesList");
+            }
+        }
+
+        return $this->twig->render('Admin/articles_edit.html.twig', ['articles' => $articles,
+            "countries" => $this->getCountries(),
+            "categories" => $this->getCategories(),
+            ]);
     }
-    **
-    /**
-    public function articlesDelete(): string
+
+
+    public function articlesDelete($id): void
     {
-
+        $articlesManager = new ArticlesManager();
+        $articlesManager->deleteArticle($id);
+        header('Location:/Admin/articlesList');
+        //return $this->twig->render("Admin/articlesList");
     }
-
-    **/
 
     public function categoriesList()
     {
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
-        return $this->twig->render("Admin/categories_list.html.twig", [
+        return $this->twig->render("/Admin/categories_list.html.twig", [
             "categories" => $categories,
         ]);
     }
@@ -83,7 +143,7 @@ class AdminController extends AbstractController
                 }
             }
         }
-        return $this->twig->render("Admin/categories_add.html.twig");
+        return $this->twig->render("/Admin/categories_add.html.twig");
     }
 
     public function categoriesEdit($id)
@@ -106,7 +166,7 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->twig->render('Admin/categories_edit.html.twig', ['categories' => $categories]);
+        return $this->twig->render('/Admin/categories_edit.html.twig', ['categories' => $categories]);
     }
 
     public function categoriesDelete($id)

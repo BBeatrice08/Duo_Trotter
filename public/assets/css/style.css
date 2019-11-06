@@ -2,6 +2,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
+
 .container {
     margin: 20px 30px;
 }
@@ -11,6 +12,7 @@
     justify-content: center;
     align-items: center;
     margin : 0 20px 10px 20px;
+
 }
 
 .articles-list {
@@ -128,5 +130,13 @@ footer .h5{
 
     .social-media-footer {
         margin: 5% 15% 0% 25%;
+    }
+
+    .general-header{
+        background-image: url("https://lemag.nikonclub.fr/wp-content/uploads/2016/11/Photo-selection-pour-Nikon-France-Mattia-Bonavida-2016-13.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        z-index: 10;
     }
 }

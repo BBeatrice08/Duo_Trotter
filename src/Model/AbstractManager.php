@@ -51,6 +51,12 @@ abstract class AbstractManager
         return $this->pdo->query('SELECT * FROM ' . $this->table)->fetchAll();
     }
 
+    /** Get all row from database by Alphabetical Order */
+    public function selectAllbyAlphabeticalOrder(): array
+    {
+        return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY name')->fetchAll();
+    }
+
     /** Get all row from database by order */
     public function selectAllByDate(): array
     {

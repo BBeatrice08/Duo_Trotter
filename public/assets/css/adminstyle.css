@@ -15,9 +15,31 @@
     font-size: 15px;
 }
 
+
+
 .main-container-admin-2{
     margin : 3px 6px;
 }
+
+
+.main-container-add {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+}
+
+.main-container-add label {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+.form-control {
+    padding: 1.375rem .75rem !important;
+}
+
+
+
 
 @media screen and (max-width: 720px) {
     .main-container-admin {
