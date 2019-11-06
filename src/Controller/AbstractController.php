@@ -53,7 +53,7 @@ abstract class AbstractController
     public function getCountries()
     {
         $countriesManager = new CountriesManager();
-        $countries = $countriesManager->selectAll();
+        $countries = $countriesManager->selectAllbyAlphabeticalOrder();
         return $countries;
     }
 
