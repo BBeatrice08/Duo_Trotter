@@ -11,10 +11,13 @@ class CommentsManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+
+    //function add comments
+    /**
     public function insertComment(array $comment)
     {
 
-        $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (user_name, date, content) VALUES 
+        $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (user_name, date, content) VALUES
         (:user_name, :date, :content)");
         $request->bindValue(":user_name", $comment["comment_user_name"], \PDO::PARAM_STR);
         $request->bindValue(":date", $comment["comment_date"], \PDO::PARAM_STR);
@@ -22,4 +25,5 @@ class CommentsManager extends AbstractManager
 
         return $request->execute();
     }
+    **/
 }
