@@ -73,6 +73,11 @@ abstract class AbstractManager
         return $this->pdo->query("SELECT * FROM $this->table WHERE countries_id = $id ")->fetchAll();
     }
 
+    public function selectAllByCategory($id): array
+    {
+        return $this->pdo->query("SELECT * FROM $this->table WHERE categories_id = $id ")->fetchAll();
+    }
+
     /**
      * Get one row from database by ID.
      *
