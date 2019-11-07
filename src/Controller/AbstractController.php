@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Model\ArticlesManager;
 use App\Model\CategoriesManager;
+use App\Model\CommentsManager;
 use App\Model\ContinentsManager;
 use App\Model\CountriesManager;
 use Twig\Environment;
@@ -63,5 +64,12 @@ abstract class AbstractController
         $continentsManager = new ContinentsManager();
         $continents = $continentsManager->selectAll();
         return $continents;
+    }
+
+    public function getComments()
+    {
+        $commentsManager = new CommentsManager();
+        $comments = $commentsManager->selectAll();
+        return $comments;
     }
 }

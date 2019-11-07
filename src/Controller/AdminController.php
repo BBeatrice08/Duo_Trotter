@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\AdminManager;
 use App\Model\ArticlesManager;
 use App\Model\CategoriesManager;
+use App\Model\CommentsManager;
 
 class AdminController extends AbstractController
 {
@@ -40,7 +41,7 @@ class AdminController extends AbstractController
                 }
             }
         }
-        /*var_dump($this->getCountries());*/
+
         return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
@@ -64,7 +65,6 @@ class AdminController extends AbstractController
             } else {
                 $articles['id'] = $_POST["article_id"];
             }
-
 
             if (empty($_POST["article_image"]) || !isset($_POST["article_image"])) {
                 $send = false;
@@ -109,7 +109,6 @@ class AdminController extends AbstractController
             "categories" => $this->getCategories(),
             ]);
     }
-
 
     public function articlesDelete($id): void
     {
@@ -174,5 +173,44 @@ class AdminController extends AbstractController
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
+    }
+
+    public function commentsList()
+    {
+        $commentsManager = new CommentsManager();
+        $comments = $commentsManager->selectAll();
+        return $this->twig->render("/Admin/comments_list.html.twig", [
+            "comments" => $comments,
+        ]);
+    }
+
+    public function commentsAdd()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $send = true;
+            if (empty($_POST["comment_user_name"]) || !isset($_POST["comment_user_name"])) {
+                $send = false;
+            }
+
+            if (empty($_POST["comment_date"]) || !isset($_POST["comment_date"])) {
+                $send = false;
+            }
+
+            if (empty($_POST["comment_content"]) || !isset($_POST["comment_content"])) {
+                $send = false;
+            }
+            if ($send) {
+                $commentsManager = new CommentsManager();
+
+                if ($commentsManager->insertComment($_POST)) {
+                    header("Location:/Admin/commentsList");
+                }
+            }
+        }
+
+        return $this->twig->render("/Admin/comments_add.html.twig", [
+            "articles" => $this->getComments(),
+
+        ]);
     }
 }
