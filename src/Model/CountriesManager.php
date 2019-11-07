@@ -11,7 +11,7 @@ class CountriesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function selectAllByContinents($id)
+    public function selectAllByContinent($id)
     {
         // prepared request
         return $this->pdo->query("SELECT * FROM $this->table WHERE continents_id = $id ")->fetchAll();
