@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use App\Model\ArticlesManager;
 use App\Model\CategoriesManager;
 use App\Model\ContinentsManager;
 use App\Model\CountriesManager;

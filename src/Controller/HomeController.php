@@ -24,7 +24,7 @@ class HomeController extends AbstractController
     public function index()
     {
         $articlesManager = new ArticlesManager();
-        $articles = $articlesManager->selectAll();
+        $articles = $articlesManager->selectAllLimit5();
         return $this->twig->render('Articles/list.html.twig', [
             "articles" => $articles,
             "categories" => $this->getCategories(),
