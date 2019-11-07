@@ -16,6 +16,28 @@ class ArticlesController extends AbstractController
             "continents" => $this->getContinents(),
         ]);
     }
+
+    public function show($id): string
+    {
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectOneById($id);
+        return $this->twig->render("Articles/show.html.twig", [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
+    }
+
+    public function showByCountry($id): string
+    {
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectAllByCountry($id);
+        return $this->twig->render("Articles/show_by_country.html.twig", [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
+    }
 }
 
 

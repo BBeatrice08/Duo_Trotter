@@ -63,6 +63,16 @@ abstract class AbstractManager
         return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY date DESC')->fetchAll();
     }
 
+    public function selectAllLimit5(): array
+    {
+        return $this->pdo->query("SELECT * FROM $this->table ORDER by date DESC LIMIT 5")->fetchAll();
+    }
+
+    public function selectAllByCountry($id): array
+    {
+        return $this->pdo->query("SELECT * FROM $this->table WHERE countries_id = $id ")->fetchAll();
+    }
+
     /**
      * Get one row from database by ID.
      *
