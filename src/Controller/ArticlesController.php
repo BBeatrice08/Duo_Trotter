@@ -38,6 +38,17 @@ class ArticlesController extends AbstractController
             "continents" => $this->getContinents(),
         ]);
     }
+
+    public function showByCategory($id): string
+    {
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectAllByCategory($id);
+        return $this->twig->render("Articles/show_by_category.html.twig", [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
+    }
 }
 
 
