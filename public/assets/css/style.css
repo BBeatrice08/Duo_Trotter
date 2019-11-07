@@ -133,7 +133,7 @@ footer .h5{
     }
 
     .general-header{
-        background-image: url("https://lemag.nikonclub.fr/wp-content/uploads/2016/11/Photo-selection-pour-Nikon-France-Mattia-Bonavida-2016-13.jpg");
+        background-image: url("/assets/images/banner.jpg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
