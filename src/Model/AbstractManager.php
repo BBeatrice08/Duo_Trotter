@@ -63,9 +63,9 @@ abstract class AbstractManager
         return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY date DESC')->fetchAll();
     }
 
-    public function selectAllLimit5(): array
+    public function selectAllLimit(int $nbr): array
     {
-        return $this->pdo->query("SELECT * FROM $this->table ORDER by date DESC LIMIT 5")->fetchAll();
+        return $this->pdo->query("SELECT * FROM $this->table ORDER by date DESC LIMIT $nbr")->fetchAll();
     }
 
     public function selectAllByCountry($id): array
@@ -85,7 +85,7 @@ abstract class AbstractManager
      *
      * @return array
      */
-    public function selectOneById(int $id)
+    public function selectOneById(int $id): array
     {
         // prepared request
         $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE id=:id");

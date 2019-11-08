@@ -3,14 +3,12 @@
 {% block title %}Liste des articles{% endblock %}
 
 {% block content %}
-
     {% for article in articles %}
         <div class = main-container-admin>
             <div class = main-container-admin-1>
                 {{ article.date }}
                 {{ article.title }}
             </div>
-
             <div class = main-container-admin-2>
 <<<<<<< HEAD
                 <a href="/admin/articlesEdit" class="btn btn-primary" role="button">Editer</a>
@@ -21,8 +19,6 @@
                 <a href="{{ "/admin/articlesDelete/" ~ article.id }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
 >>>>>>> 8cef3bc86f5eff9f21144f8a081c4bd34dc78b91
             </div>
-
         </div>
     {% endfor %}
-
 {% endblock %}
