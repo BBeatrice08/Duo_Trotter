@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Model\AdminManager;
@@ -10,7 +9,7 @@ use App\Model\CommentsManager;
 
 class AdminController extends AbstractController
 {
-    public function articlesList()
+    public function articlesList(): string
     {
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
@@ -19,7 +18,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function articlesAdd()
+    public function articlesAdd(): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
@@ -49,7 +48,7 @@ class AdminController extends AbstractController
     }
 
 
-    public function articlesEdit($id)
+    public function articlesEdit($id): string
     {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
@@ -116,10 +115,9 @@ class AdminController extends AbstractController
         $articlesManager = new ArticlesManager();
         $articlesManager->deleteArticle($id);
         header('Location:/Admin/articlesList');
-        //return $this->twig->render("Admin/articlesList");
     }
 
-    public function categoriesList()
+    public function categoriesList():string
     {
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
@@ -128,7 +126,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function categoriesAdd()
+    public function categoriesAdd(): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
@@ -146,7 +144,7 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/categories_add.html.twig");
     }
 
-    public function categoriesEdit($id)
+    public function categoriesEdit($id): string
     {
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectOneById($id);
@@ -169,14 +167,14 @@ class AdminController extends AbstractController
         return $this->twig->render('/Admin/categories_edit.html.twig', ['categories' => $categories]);
     }
 
-    public function categoriesDelete($id)
+    public function categoriesDelete($id): void
     {
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
     }
 
-    public function commentsList()
+    public function commentsList(): string
     {
         $commentsManager = new CommentsManager();
         $comments = $commentsManager->selectAll();
@@ -185,7 +183,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function commentsAdd()
+    public function commentsAdd(): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;

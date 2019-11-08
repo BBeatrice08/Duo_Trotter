@@ -21,10 +21,10 @@ class HomeController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function index()
+    public function index(): string
     {
         $articlesManager = new ArticlesManager();
-        $articles = $articlesManager->selectAllLimit5();
+        $articles = $articlesManager->selectAllLimit(5);
         return $this->twig->render('Articles/list.html.twig', [
             "articles" => $articles,
             "categories" => $this->getCategories(),

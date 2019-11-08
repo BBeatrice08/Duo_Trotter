@@ -50,16 +50,3 @@ class ArticlesController extends AbstractController
         ]);
     }
 }
-
-
-
-
-/*    public function edit(int $id)
-    {
-        die("edit article number $id");
-    }
-
-    public function delete(int $id)
-    {
-        die("delete article number $id");
-    }*/

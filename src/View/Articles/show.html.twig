@@ -1,14 +1,13 @@
 {% extends "layout.html.twig" %}
 
-{% block title %} {{ articles.title }} {% endblock %}
+{% block title %}{{ articles.title }}{% endblock %}
 
 {% block content %}
     {% if articles == false %}
         <h2>Cet article n'existe pas !</h2>
         <h4>Il a peut-être été supprimé ou pas encore écrit !</h4>
     {% else %}
-
-    <div class = "articles-list">
+        <div class = "articles-list">
             <div class="article-card mb-3">
                 <div class="row no-gutters">
                     <div class="col-md-4">
@@ -23,7 +22,6 @@
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     {% endif %}
-
 {% endblock %}

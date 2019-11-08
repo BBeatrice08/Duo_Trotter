@@ -6,7 +6,7 @@ use App\Model\CountriesManager;
 
 class CountriesController extends AbstractController
 {
-    public function show($id)
+    public function show($id): string
     {
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectAllByContinent($id);

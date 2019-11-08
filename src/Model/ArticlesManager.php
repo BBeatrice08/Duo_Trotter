@@ -11,9 +11,8 @@ class ArticlesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function insertArticle(array $article)
+    public function insertArticle(array $article): bool
     {
-
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." 
         (title, image, date, content, categories_id, countries_id) VALUES 
         (:title, :image, :date, :content, :categories_id, :countries_id)");
@@ -27,9 +26,8 @@ class ArticlesManager extends AbstractManager
         return $request->execute();
     }
 
-    public function updateArticle(array $articles):bool
+    public function updateArticle(array $articles): bool
     {
-
         $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title, `image` = :image, `date` =:date, 
         `content` = :content, `categories_id` =:categories_id, `countries_id` = :countries_id WHERE id=:id");
         $statement->bindValue('id', $articles['id'], \PDO::PARAM_INT);
@@ -45,7 +43,6 @@ class ArticlesManager extends AbstractManager
 
     public function deleteArticle(int $id): void
     {
-        // prepared request
         $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();

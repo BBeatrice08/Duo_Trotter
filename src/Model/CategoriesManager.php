@@ -11,9 +11,8 @@ class CategoriesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function insertCategory(array $category)
+    public function insertCategory(array $category): bool
     {
-
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (name) VALUES 
         (:name)");
         $request->bindValue(":name", $category["category_name"], \PDO::PARAM_STR);
@@ -23,7 +22,6 @@ class CategoriesManager extends AbstractManager
 
     public function update(array $categories):bool
     {
-
         $statement = $this->pdo->prepare("UPDATE $this->table SET `name` = :name WHERE id=:id");
         $statement->bindValue('id', $categories['id'], \PDO::PARAM_INT);
         $statement->bindValue('name', $categories['name'], \PDO::PARAM_STR);
@@ -33,7 +31,6 @@ class CategoriesManager extends AbstractManager
 
     public function delete(int $id): void
     {
-        // prepared request
         $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();

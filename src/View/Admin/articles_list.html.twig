@@ -3,20 +3,16 @@
 {% block title %}Liste des articles{% endblock %}
 
 {% block content %}
-
     {% for article in articles %}
         <div class = main-container-admin>
             <div class = main-container-admin-1>
                 {{ article.date }}
                 {{ article.title }}
             </div>
-
             <div class = main-container-admin-2>
                 <a href="{{ "/admin/articlesEdit/" ~ article.id }}"><button type="button" class="btn btn-primary">Editer</button></a>
                 <a href="{{ "/admin/articlesDelete/" ~ article.id }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
             </div>
-
         </div>
     {% endfor %}
-
 {% endblock %}

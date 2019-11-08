@@ -15,12 +15,9 @@
     font-size: 15px;
 }
 
-
-
 .main-container-admin-2{
     margin : 3px 6px;
 }
-
 
 .main-container-add {
     width: 80%;
@@ -37,9 +34,6 @@
 .form-control {
 
 }
-
-
-
 
 @media screen and (max-width: 720px) {
     .main-container-admin {

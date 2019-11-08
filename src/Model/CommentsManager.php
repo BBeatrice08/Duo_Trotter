@@ -11,9 +11,7 @@ class CommentsManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-
-    //function add comments
-    public function insertComment(array $comments)
+    public function insertComment(array $comments): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (user_name, date, content) VALUES
         (:user_name, :date, :content)");
