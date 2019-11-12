@@ -50,7 +50,7 @@ class AdminController extends AbstractController
 
 
 
-    public function articlesEdit($id): string
+    public function articlesEdit(int $id): string
     {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
@@ -112,7 +112,7 @@ class AdminController extends AbstractController
             ]);
     }
 
-    public function articlesDelete($id): void
+    public function articlesDelete(int $id): void
     {
         $articlesManager = new ArticlesManager();
         $articlesManager->deleteArticle($id);
@@ -146,7 +146,7 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/categories_add.html.twig");
     }
 
-    public function categoriesEdit($id): string
+    public function categoriesEdit(int $id): string
     {
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectOneById($id);
@@ -169,7 +169,7 @@ class AdminController extends AbstractController
         return $this->twig->render('/Admin/categories_edit.html.twig', ['categories' => $categories]);
     }
 
-    public function categoriesDelete($id): void
+    public function categoriesDelete(int $id): void
     {
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
