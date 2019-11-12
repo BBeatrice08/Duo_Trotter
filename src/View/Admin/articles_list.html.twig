@@ -10,14 +10,13 @@
                 {{ article.title }}
             </div>
             <div class = main-container-admin-2>
-<<<<<<< HEAD
-                <a href="/admin/articlesEdit" class="btn btn-primary" role="button">Editer</a>
-                <a href="/admin/articlesDelete" class="btn btn-danger" role="button">Supprimer</a>
+
+                <!-- <a href="/admin/articlesEdit" class="btn btn-primary" role="button">Editer</a> -->
+                <!-- <a href="/admin/articlesDelete" class="btn btn-danger" role="button">Supprimer</a> -->
                 <!-- <button type="button" class="btn btn-danger">Supprimer</button> -->
-=======
                 <a href="{{ "/admin/articlesEdit/" ~ article.id }}"><button type="button" class="btn btn-primary">Editer</button></a>
                 <a href="{{ "/admin/articlesDelete/" ~ article.id }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
->>>>>>> 8cef3bc86f5eff9f21144f8a081c4bd34dc78b91
+
             </div>
         </div>
     {% endfor %}
