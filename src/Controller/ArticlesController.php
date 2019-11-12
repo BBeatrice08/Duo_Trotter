@@ -17,7 +17,7 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    public function show($id): string
+    public function show(int $id): string
     {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
@@ -28,7 +28,7 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    public function showByCountry($id): string
+    public function showByCountry(int $id): string
     {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAllByCountry($id);
@@ -39,7 +39,7 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    public function showByCategory($id): string
+    public function showByCategory(int $id): string
     {
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAllByCategory($id);
