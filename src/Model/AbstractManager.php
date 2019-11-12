@@ -51,10 +51,31 @@ abstract class AbstractManager
         return $this->pdo->query('SELECT * FROM ' . $this->table)->fetchAll();
     }
 
+    /** Get all row from database by Alphabetical Order */
+    public function selectAllbyAlphabeticalOrder(): array
+    {
+        return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY name')->fetchAll();
+    }
+
     /** Get all row from database by order */
     public function selectAllByDate(): array
     {
         return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY date DESC')->fetchAll();
+    }
+
+    public function selectAllLimit(int $nbr): array
+    {
+        return $this->pdo->query("SELECT * FROM $this->table ORDER by date DESC LIMIT $nbr")->fetchAll();
+    }
+
+    public function selectAllByCountry($id): array
+    {
+        return $this->pdo->query("SELECT * FROM $this->table WHERE countries_id = $id ")->fetchAll();
+    }
+
+    public function selectAllByCategory($id): array
+    {
+        return $this->pdo->query("SELECT * FROM $this->table WHERE categories_id = $id ")->fetchAll();
     }
 
     /**
@@ -64,7 +85,7 @@ abstract class AbstractManager
      *
      * @return array
      */
-    public function selectOneById(int $id)
+    public function selectOneById(int $id): array
     {
         // prepared request
         $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE id=:id");

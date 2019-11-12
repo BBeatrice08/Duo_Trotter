@@ -1,0 +1,45 @@
+{% extends "adminlayout.html.twig" %}
+
+{% block title %}Edit an article {% endblock %}
+
+{% block content %}
+    <div class ="main-container-add">
+    <form action="" method="POST" style="display:flex; flex-direction:column;">
+        <div class="form-group">
+            <label for="title">Entrez le titre de l'article</label>
+            <input type="text" class="form-control" value="{{ articles.title }}" name="article_title" id="title" placeholder="Entrez le titre de l'article">
+            <input type="hidden" class="form-control" value="{{ articles.id }}" name="article_id" id="id">
+        </div>
+        <div class="form-group">
+            <label for="image">Insérez une image</label>
+            <input type="text" class="form-control" name="article_image" id="image" placeholder="Insérez une image">
+        </div>
+        <div class="form-group">
+            <label for="date">Entrez la date</label>
+            <input type="date" class="form-control" value="{{ articles.date }}" name="article_date" id="date">
+        </div>
+        <div class="form-group">
+            <label for="category">Sélectionnez une catégorie pour cet article</label>
+            <select name="article_category" class="form-control" id="category">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="country">Sélectionnez un pays pour cet article</label>
+            <select name="article_country" class="form-control" id="country">
+                {% for country in countries %}
+                    <option value="{{ country.id }}">{{ country.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="content">Entrez le contenu de l'article</label>
+            <textarea rows="10" class="form-control" name="article_content" id="content" placeholder="Entrez le contenu de l'article">{{ articles.content }}</textarea>
+            <input type="submit" class="form-control" value="Ajouter">
+        </div>
+    </form>
+    </div>
+
+{% endblock %}

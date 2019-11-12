@@ -1,0 +1,14 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block content %}
+    <div class ="main-container-add">
+        <div class="form-group">
+            <form action="" method="POST" style="display:flex; flex-direction:column;">
+                <label for="name">Entrez le nom de la catégorie</label>
+                <input type="hidden" class="form-control" value="{{ categories.id }}" name="category_id" id="id">
+                <input type="text"  class="form-control" name="category_name" id="name" placeholder="Entrez le nom de la catégorie" value="{{ categories.name }}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

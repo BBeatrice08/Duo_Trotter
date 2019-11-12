@@ -1,0 +1,24 @@
+{% extends "adminlayout.html.twig" %}
+
+{% block title %} Add a comment {% endblock %}
+
+{% block content %}
+    <div class ="main-container-add">
+        <form action="" method="POST" style="display:flex; flex-direction:column;">
+            <h1>Ajoutez un commentaire</h1>
+            <div class="form-group">
+                <label for="user_name">Entrez votre nom</label>
+                <input type="text" class="form-control" name="comment_user_name" id="user_name" placeholder="Entrez votre nom">
+            </div>
+            <div class="form-group">
+                <label for="date_comment">Entrez la date</label>
+                <input type="date" class="form-control" name="comment_date" id="date_comment">
+            </div>
+            <div class="form-group">
+                <label for="content">Entrez le contenu du commentaire</label>
+                <textarea rows="10" class="form-control" name="comment_content" id="content" placeholder="Entrez le contenu de l'article"></textarea>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

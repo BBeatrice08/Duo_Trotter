@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-class ContactController extends AbstractController
+class AboutController extends AbstractController
 {
-    public function index(): string
+    public function index():string
     {
-        return $this->twig->render('Home/contact.html.twig', [
+        return $this->twig->render('Home/about.html.twig', [
             "categories" => $this->getCategories(),
             "continents" => $this->getContinents(),
         ]);

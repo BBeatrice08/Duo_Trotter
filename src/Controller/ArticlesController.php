@@ -12,41 +12,41 @@ class ArticlesController extends AbstractController
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("Articles/list.html.twig", [
             "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
         ]);
     }
 
-    public function add()
+    public function show(int $id): string
     {
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $send = true;
-            if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
-                $send = false;
-            }
-            if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
-                $send = false;
-            }
-            if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
-                $send = false;
-            }
-            if ($send) {
-                $articlesManager = new ArticlesManager();
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectOneById($id);
+        return $this->twig->render("Articles/show.html.twig", [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
+    }
 
-                if ($articlesManager->insertArticle($_POST)) {
-                    header("Location:/articles/list");
-                }
-            }
-        }
-        return $this->twig->render("Articles/add.html.twig");
+    public function showByCountry(int $id): string
+    {
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectAllByCountry($id);
+        return $this->twig->render("Articles/show_by_country.html.twig", [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
+    }
+
+    public function showByCategory(int $id): string
+    {
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectAllByCategory($id);
+        return $this->twig->render("Articles/show_by_category.html.twig", [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
     }
 }
-
-
-/*    public function edit(int $id)
-    {
-        die("edit article number $id");
-    }
-
-    public function delete(int $id)
-    {
-        die("delete article number $id");
-    }*/
