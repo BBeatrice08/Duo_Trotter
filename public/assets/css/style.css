@@ -35,6 +35,14 @@
     background-color: #085ea5;
 }
 
+.success {
+    margin : 50px;
+    display : flex;
+    justify-content: center;
+}
+
+
+
 footer {
     background-color: black;
     border: solid black 1px;

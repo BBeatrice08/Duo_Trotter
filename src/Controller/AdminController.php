@@ -9,8 +9,34 @@ use App\Model\CommentsManager;
 
 class AdminController extends AbstractController
 {
+
+    public function login()
+    {
+        session_start();
+        if (!empty($_POST)) {
+            if (isset($_POST['user']) || $_POST['password']) {
+                if ($_POST['user'] == 'duotrotter' && $_POST['password'] == 'coucou2019') {
+                    $_SESSION['user'] = 'duotrotter';
+                    $_SESSION['password'] = 'coucou2019';
+                    header('Location: ../admin/articlesList');
+                } elseif ($_POST['user'] != 'duotrotter' || $_POST['password'] != 'coucou2019') {
+                    header('Location: ../admin/login');
+                }
+            }
+        } else {
+            return $this->twig->render("/Admin/login.html.twig");
+        }
+    }
+
+
+
     public function articlesList(): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("/Admin/articles_list.html.twig", [
@@ -20,6 +46,11 @@ class AdminController extends AbstractController
 
     public function articlesAdd(): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -52,6 +83,11 @@ class AdminController extends AbstractController
 
     public function articlesEdit(int $id): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -114,6 +150,11 @@ class AdminController extends AbstractController
 
     public function articlesDelete(int $id): void
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $articlesManager = new ArticlesManager();
         $articlesManager->deleteArticle($id);
         header('Location:/Admin/articlesList');
@@ -121,6 +162,11 @@ class AdminController extends AbstractController
 
     public function categoriesList():string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
         return $this->twig->render("/Admin/categories_list.html.twig", [
@@ -130,6 +176,11 @@ class AdminController extends AbstractController
 
     public function categoriesAdd(): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["category_name"]) || !isset($_POST["category_name"])) {
@@ -148,6 +199,11 @@ class AdminController extends AbstractController
 
     public function categoriesEdit(int $id): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -171,6 +227,11 @@ class AdminController extends AbstractController
 
     public function categoriesDelete(int $id): void
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
@@ -178,6 +239,11 @@ class AdminController extends AbstractController
 
     public function commentsList(): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         $commentsManager = new CommentsManager();
         $comments = $commentsManager->selectAll();
         return $this->twig->render("/Admin/comments_list.html.twig", [
@@ -187,6 +253,11 @@ class AdminController extends AbstractController
 
     public function commentsAdd(): string
     {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["comment_user_name"]) || !isset($_POST["comment_user_name"])) {
