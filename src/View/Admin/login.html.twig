@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/assets/css/adminstyle.css">
+
+{% block content %}
+
+<form class ="login" method="post">
+    <div class="form-group login-input">
+        <label for="user">Utilisateur</label>
+        <input type ="text" class="form-control login-input" id="user" name="user">
+    </div>
+    <div class="form-group login-input">
+        <label for="password">Mot de passe</label>
+        <input type ="password" class="form-control login-input" id="password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
+
+{% endblock %}
