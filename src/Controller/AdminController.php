@@ -10,7 +10,6 @@ use App\Model\CommentsManager;
 class AdminController extends AbstractController
 {
 
-
     public function login()
     {
         session_start();
