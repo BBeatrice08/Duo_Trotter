@@ -94,4 +94,13 @@ abstract class AbstractManager
 
         return $statement->fetch();
     }
+
+    public function selectAllByArticle(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE articles_id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 }

@@ -66,10 +66,10 @@ abstract class AbstractController
         return $continents;
     }
 
-    public function getComments():array
+    public function getComments($id):array
     {
         $commentsManager = new CommentsManager();
-        $comments = $commentsManager->selectAll();
+        $comments = $commentsManager->selectAllByArticle($id);
         return $comments;
     }
 }

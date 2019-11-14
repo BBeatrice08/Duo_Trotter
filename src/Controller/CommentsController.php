@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Controller;
+
+use App\Controller\AbstractController;
+use App\Model\CommentsManager;
+
+class CommentsController extends AbstractController
+{
+    public function add($id): string
+    {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $send = true;
+            if (empty($_POST["comment_user_name"]) || !isset($_POST["comment_user_name"])) {
+                $send = false;
+            }
+            if (empty($_POST["comment_content"]) || !isset($_POST["comment_content"])) {
+                $send = false;
+            }
+            if ($send) {
+                $commentsManager = new CommentsManager();
+
+                if ($commentsManager->insertComment($_POST)) {
+                    header("Location: /articles/show/" . $id);
+                }
+            }
+        }
+
+        return $this->twig->render("/Comments/add.html.twig", [
+            "id" => $id,
+
+        ]);
+    }
+}
