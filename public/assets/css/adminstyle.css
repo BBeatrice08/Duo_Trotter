@@ -13,6 +13,11 @@
     justify-content: center;
 }
 
+.current-image img{
+
+    height: 200px;
+    width : auto;
+}
 
 .navbar {
     background-color: #085ea5;

@@ -35,8 +35,8 @@ class ArticlesManager extends AbstractManager
         $statement->bindValue('image', $articles['image'], \PDO::PARAM_STR);
         $statement->bindValue('date', $articles['date'], \PDO::PARAM_STR);
         $statement->bindValue('content', $articles['content'], \PDO::PARAM_STR);
-        $statement->bindValue('categories_id', $articles['categories_id'], \PDO::PARAM_INT);
-        $statement->bindValue('countries_id', $articles['countries_id'], \PDO::PARAM_INT);
+        $statement->bindValue('categories_id', $articles['category'], \PDO::PARAM_INT);
+        $statement->bindValue('countries_id', $articles['country'], \PDO::PARAM_INT);
 
         return $statement->execute();
     }
