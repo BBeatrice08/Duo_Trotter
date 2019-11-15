@@ -25,6 +25,7 @@ class ArticlesController extends AbstractController
             "articles" => $articles,
             "categories" => $this->getCategories(),
             "continents" => $this->getContinents(),
+            "comments" => $this->getComments($id),
         ]);
     }
 

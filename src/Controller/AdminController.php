@@ -28,8 +28,6 @@ class AdminController extends AbstractController
         }
     }
 
-
-
     public function articlesList(): string
     {
         session_start();
@@ -71,15 +69,11 @@ class AdminController extends AbstractController
                 }
             }
         }
-
         return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
         ]);
     }
-
-
-
 
     public function articlesEdit(int $id): string
     {
@@ -249,42 +243,7 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/comments_list.html.twig", [
             "comments" => $comments,
         ]);
-    }
-
-    public function commentsAdd(): string
-    {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $send = true;
-            if (empty($_POST["comment_user_name"]) || !isset($_POST["comment_user_name"])) {
-                $send = false;
-            }
-
-            if (empty($_POST["comment_date"]) || !isset($_POST["comment_date"])) {
-                $send = false;
-            }
-
-            if (empty($_POST["comment_content"]) || !isset($_POST["comment_content"])) {
-                $send = false;
-            }
-            if ($send) {
-                $commentsManager = new CommentsManager();
-
-                if ($commentsManager->insertComment($_POST)) {
-                    header("Location:/Admin/commentsList");
-                }
-            }
-        }
-
-        return $this->twig->render("/Admin/comments_add.html.twig", [
-            "articles" => $this->getComments(),
-
-        ]);
-    }
+    }  
 
     public function commentsDelete(int $id)
     {
@@ -297,4 +256,5 @@ class AdminController extends AbstractController
         $commentsManager->deleteComments($id);
         header("Location:/Admin/commentsList");
     }
+
 }
