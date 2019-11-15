@@ -244,7 +244,7 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/comments_list.html.twig", [
             "comments" => $comments,
         ]);
-    }  
+    }
 
     public function commentsDelete(int $id)
     {
@@ -256,6 +256,20 @@ class AdminController extends AbstractController
         $commentsManager = new CommentsManager();
         $commentsManager->deleteComments($id);
         header("Location:/Admin/commentsList");
+    }
+
+    public function countriesList(): string
+    {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
+        $countriesManager = new CountriesManager();
+        $countries = $countriesManager->selectAll();
+        return $this->twig->render("/Admin/countries_list.html.twig", [
+            "countries" => $countries,
+        ]);
     }
 
 
@@ -278,12 +292,56 @@ class AdminController extends AbstractController
                 $countriesManager = new CountriesManager();
 
                 if ($countriesManager->insertCountry($_POST)) {
-                    header("Location:/Admin/articlesList");
+                    header("Location:/Admin/countriesList");
                 }
             }
         }
         return $this->twig->render("/Admin/countries_add.html.twig", [
             "continents" => $this->getContinents(),
         ]);
+    }
+
+    public function countriesEdit(int $id): string
+    {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
+        $countriesManager = new CountriesManager();
+        $countries = $countriesManager->selectOneById($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $send = true;
+
+            if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
+                $send = false;
+            }
+
+            if ($send) {
+                $countries['id'] = $_POST["country_id"];
+                $countries['name'] = $_POST["country_name"];
+                $countries['continent_id'] = $_POST["country_continent_id"];
+
+                $countriesManager->updateCountry($countries);
+                header("Location:/Admin/countriesList");
+            }
+        }
+
+        return $this->twig->render('/Admin/countries_edit.html.twig', [
+            'countries' => $countries,
+            "continents" => $this->getContinents(),
+        ]);
+    }
+
+    public function countriesDelete(int $id): void
+    {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
+        $countriesManager = new CountriesManager();
+        $countriesManager->deleteCountry($id);
+        header('Location:/Admin/countriesList');
     }
 }
