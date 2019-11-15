@@ -21,4 +21,11 @@ class CommentsManager extends AbstractManager
 
         return $request->execute();
     }
+
+    public function deleteComments(int $id)
+    {
+        $statement = $this->pdo->prepare("DELETE FROM ".self::TABLE." WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
