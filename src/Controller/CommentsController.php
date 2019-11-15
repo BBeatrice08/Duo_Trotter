@@ -7,7 +7,7 @@ use App\Model\CommentsManager;
 
 class CommentsController extends AbstractController
 {
-    public function add($id): string
+    public function add(int $id): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
