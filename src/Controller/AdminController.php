@@ -243,5 +243,18 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/comments_list.html.twig", [
             "comments" => $comments,
         ]);
+    }  
+
+    public function commentsDelete(int $id)
+    {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
+        $commentsManager = new CommentsManager();
+        $commentsManager->deleteComments($id);
+        header("Location:/Admin/commentsList");
     }
+
 }
