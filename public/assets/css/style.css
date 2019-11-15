@@ -25,6 +25,7 @@
 .article-card {
 
     border-radius: 20px;
+    margin-left : 30px;
 }
 
 .card h5 {
@@ -45,6 +46,7 @@
     height : 350px;
     width : auto;
 }
+
 
 
 
