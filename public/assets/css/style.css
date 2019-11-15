@@ -44,11 +44,14 @@
 }
 
 .card-img {
-    height : 250px;
-    width : auto;
+    max-width:100%;
+    height:auto;
 }
 
-
+.comments {
+    display : flex;
+    justify-content: center;
+}
 
 
 footer {

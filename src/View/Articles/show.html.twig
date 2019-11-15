@@ -24,10 +24,12 @@
                 </div>
             </div>
         </div>
+        <div class = "comments">
         {% if comments is empty %}
             <h4>Il n'y a pas encore de commentaires sur cette article !</h4>
         {% else %}
         <h3>Commentaires</h3>
+            </div>
         <hr>
             {% for comment in comments %}
                 <div>
@@ -39,4 +41,5 @@
             {% endfor %}
         {% endif %}
     {% endif %}
+
 {% endblock %}
