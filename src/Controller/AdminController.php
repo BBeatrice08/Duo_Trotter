@@ -6,6 +6,7 @@ use App\Model\AdminManager;
 use App\Model\ArticlesManager;
 use App\Model\CategoriesManager;
 use App\Model\CommentsManager;
+use App\Model\CountriesManager;
 
 class AdminController extends AbstractController
 {
@@ -257,4 +258,32 @@ class AdminController extends AbstractController
         header("Location:/Admin/commentsList");
     }
 
+
+    public function countriesAdd()
+    {
+        session_start();
+        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
+        } else {
+            header("Location: ../admin/login");
+        }
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $send = true;
+            if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
+                $send = false;
+            }
+            if (empty($_POST["country_image"]) || !isset($_POST["country_image"])) {
+                $send = false;
+            }
+            if ($send) {
+                $countriesManager = new CountriesManager();
+
+                if ($countriesManager->insertCountry($_POST)) {
+                    header("Location:/Admin/articlesList");
+                }
+            }
+        }
+        return $this->twig->render("/Admin/countries_add.html.twig", [
+            "continents" => $this->getContinents(),
+        ]);
+    }
 }

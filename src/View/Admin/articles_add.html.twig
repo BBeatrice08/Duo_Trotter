@@ -28,11 +28,12 @@
         </div>
         <div class="form-group">
             <label for="country">Sélectionnez un pays pour cet article</label>
-         <select name="article_country" class="form-control" id="country">
-            {% for country in countries %}
-                <option value="{{ country.id }}">{{ country.name }}</option>
-            {% endfor %}
-        </select>
+             <select name="article_country" class="form-control" id="country">
+                {% for country in countries %}
+                    <option value="{{ country.id }}">{{ country.name }}</option>
+                {% endfor %}
+            </select>
+            <a href="/Admin/countriesAdd">Ajouter une catégorie</a>
         </div>
         <div class="form-group">
             <label for="content">Entrez le contenu de l'article</label>
