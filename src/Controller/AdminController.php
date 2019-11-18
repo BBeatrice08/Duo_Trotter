@@ -240,7 +240,7 @@ class AdminController extends AbstractController
             header("Location: ../admin/login");
         }
         $commentsManager = new CommentsManager();
-        $comments = $commentsManager->selectAll();
+        $comments = $commentsManager->listComment();
         return $this->twig->render("/Admin/comments_list.html.twig", [
             "comments" => $comments,
         ]);
