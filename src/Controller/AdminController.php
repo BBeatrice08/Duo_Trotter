@@ -10,6 +10,8 @@ use App\Model\CountriesManager;
 
 class AdminController extends AbstractController
 {
+
+
     public function login()
     {
         if (!empty($_POST)) {
@@ -41,7 +43,9 @@ class AdminController extends AbstractController
     public function articlesAdd(): string
     {
 
+
         $this->isLog();
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
 
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -97,6 +101,7 @@ class AdminController extends AbstractController
     {
 
         $this->isLog();
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
         $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
@@ -266,7 +271,7 @@ class AdminController extends AbstractController
         header("Location:/Admin/commentsList");
     }
 
-  public function countriesList(): string
+    public function countriesList(): string
     {
         $this->isLog();
 
