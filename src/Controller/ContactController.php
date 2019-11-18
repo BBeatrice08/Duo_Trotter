@@ -21,14 +21,14 @@ class ContactController extends AbstractController
     {
          $email = (new Email())
              ->from($_POST['email'])
-             ->to('duotrotter@gmail.com')
+             ->to(MAIL_RECEIVER)
             ->subject('Message from : ' . $_POST['email'])
              ->text($_POST['message'])
              ->html($_POST['message']);
-         $transport = new GmailTransport('duotrotter', 'coucou2019');
+         $transport = new GmailTransport(ADMIN_LOGIN, ADMIN_PASSWORD);
          $mailer = new Mailer($transport);
          $mailer->send($email);
-         header('Location: ../contact/success');
+         header('Location: /contact/success');
     }
 
     public function success(): string

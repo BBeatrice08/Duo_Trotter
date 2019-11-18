@@ -14,12 +14,12 @@ class ArticlesManager extends AbstractManager
     public function insertArticle(array $article): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." 
-        (title, image, date, content, categories_id, countries_id) VALUES 
-        (:title, :image, :date, :content, :categories_id, :countries_id)");
+        (title, image,  date, content, categories_id, countries_id) VALUES 
+        (:title, :image,  :date, :content, :categories_id, :countries_id)");
         $request->bindValue(":title", $article["article_title"], \PDO::PARAM_STR);
-        $request->bindValue(":image", $article["article_image"], \PDO::PARAM_STR);
         $request->bindValue(":date", $article["article_date"], \PDO::PARAM_STR);
         $request->bindValue(":content", $article["article_content"], \PDO::PARAM_STR);
+        $request->bindValue(":image", $article["article_image"], \PDO::PARAM_STR);
         $request->bindValue(":categories_id", $article["article_category"], \PDO::PARAM_STR);
         $request->bindValue(":countries_id", $article["article_country"], \PDO::PARAM_STR);
         
@@ -28,15 +28,15 @@ class ArticlesManager extends AbstractManager
 
     public function updateArticle(array $articles): bool
     {
-        $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title, `image` = :image, `date` =:date, 
+        $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title, `date` =:date,`image` = :image,  
         `content` = :content, `categories_id` =:categories_id, `countries_id` = :countries_id WHERE id=:id");
-        $statement->bindValue('id', $articles['id'], \PDO::PARAM_INT);
-        $statement->bindValue('title', $articles['title'], \PDO::PARAM_STR);
-        $statement->bindValue('image', $articles['image'], \PDO::PARAM_STR);
-        $statement->bindValue('date', $articles['date'], \PDO::PARAM_STR);
-        $statement->bindValue('content', $articles['content'], \PDO::PARAM_STR);
-        $statement->bindValue('categories_id', $articles['category'], \PDO::PARAM_INT);
-        $statement->bindValue('countries_id', $articles['country'], \PDO::PARAM_INT);
+        $statement->bindValue('id', $articles['article_id'], \PDO::PARAM_INT);
+        $statement->bindValue('title', $articles['article_title'], \PDO::PARAM_STR);
+        $statement->bindValue(':image', $articles["article_image"], \PDO::PARAM_STR);
+        $statement->bindValue('date', $articles['article_date'], \PDO::PARAM_STR);
+        $statement->bindValue('content', $articles['article_content'], \PDO::PARAM_STR);
+        $statement->bindValue('categories_id', $articles['article_category'], \PDO::PARAM_INT);
+        $statement->bindValue('countries_id', $articles['article_country'], \PDO::PARAM_INT);
 
         return $statement->execute();
     }

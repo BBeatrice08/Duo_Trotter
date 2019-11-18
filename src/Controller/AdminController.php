@@ -11,17 +11,17 @@ use App\Model\CountriesManager;
 class AdminController extends AbstractController
 {
 
+
     public function login()
     {
-        session_start();
         if (!empty($_POST)) {
             if (isset($_POST['user']) || $_POST['password']) {
-                if ($_POST['user'] == 'duotrotter' && $_POST['password'] == 'coucou2019') {
-                    $_SESSION['user'] = 'duotrotter';
-                    $_SESSION['password'] = 'coucou2019';
-                    header('Location: ../admin/articlesList');
-                } elseif ($_POST['user'] != 'duotrotter' || $_POST['password'] != 'coucou2019') {
-                    header('Location: ../admin/login');
+                if ($_POST['user'] == ADMIN_LOGIN && $_POST['password'] == ADMIN_PASSWORD) {
+                    $_SESSION['user'] = $_POST['user'];
+                    $_SESSION['password'] = $_POST['password'];
+                    header('Location: /admin/articlesList');
+                } else {
+                    header('Location: /admin/login');
                 }
             }
         } else {
@@ -31,11 +31,8 @@ class AdminController extends AbstractController
 
     public function articlesList(): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("/Admin/articles_list.html.twig", [
@@ -45,11 +42,12 @@ class AdminController extends AbstractController
 
     public function articlesAdd(): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+
+
+        $this->isLog();
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
+
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -62,29 +60,51 @@ class AdminController extends AbstractController
             if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
                 $send = false;
             }
-            if ($send) {
-                $articlesManager = new ArticlesManager();
 
-                if ($articlesManager->insertArticle($_POST)) {
-                    header("Location:/Admin/articlesList");
+            if (!empty($_FILES)) {
+                if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    if ($_FILES['article_image']['size'] > 1000000) {
+                        $send = false;
+                        echo $_FILES['article_image']['name'] . "est trop lourd";
+                    } else {
+                        $tmpFilePath = $_FILES['article_image']['tmp_name'];
+                        if ($tmpFilePath != "") {
+                            $pathParts = pathinfo($_FILES['article_image']['name']);
+                            $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true)
+                                . '.' . $pathParts['extension'];
+                            if (move_uploaded_file($tmpFilePath, $filePath)) {
+                                $send = true;
+                                echo "L'upload de " . $_FILES['article_image']['name'] . " s'est bien passé !";
+                                $articlesManager = new ArticlesManager();
+                                $_POST['article_image'] = $filePath;
+                                if ($articlesManager->insertArticle($_POST)) {
+                                    header("Location:/Admin/articlesList");
+                                }
+                            }
+                        }
+                    }
                 }
+            } elseif (!in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                echo "Mauvaise extension !";
             }
         }
+
+
         return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
         ]);
     }
 
+
     public function articlesEdit(int $id): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+
+        $this->isLog();
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -97,12 +117,6 @@ class AdminController extends AbstractController
                 $send = false;
             } else {
                 $articles['id'] = $_POST["article_id"];
-            }
-
-            if (empty($_POST["article_image"]) || !isset($_POST["article_image"])) {
-                $send = false;
-            } else {
-                $articles['image'] = $_POST["article_image"];
             }
 
             if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
@@ -130,26 +144,43 @@ class AdminController extends AbstractController
             }
 
             $articles['id'] = $_POST["article_id"];
+            if (!empty($_FILES)) {
+                if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    if ($_FILES['article_image']['size'] > 1000000) {
+                        $send = false;
+                        echo $_FILES['article_image']['name'] . "est trop lourd";
+                    } else {
+                        $tmpFilePath = $_FILES['article_image']['tmp_name'];
+                        if ($tmpFilePath != "") {
+                            $pathParts = pathinfo($_FILES['article_image']['name']);
+                            $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true) . '.' .
+                                $pathParts['extension'];
+                            if (move_uploaded_file($tmpFilePath, $filePath)) {
+                                $send = true;
+                                echo "L'upload de " . $_FILES['article_image']['name'] . " s'est bien passé !";
 
-            if ($send) {
-                $articlesManager->updateArticle($articles);
-                header("Location:/Admin/articlesList");
+                                    $articlesManager = new ArticlesManager();
+                                    $_POST['article_image'] = $filePath;
+                                if ($articlesManager->updateArticle($_POST)) {
+                                        header("Location:/Admin/articlesList");
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-
         return $this->twig->render('Admin/articles_edit.html.twig', ['articles' => $articles,
             "countries" => $this->getCountries(),
             "categories" => $this->getCategories(),
-            ]);
+        ]);
     }
+
 
     public function articlesDelete(int $id): void
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $articlesManager = new ArticlesManager();
         $articlesManager->deleteArticle($id);
         header('Location:/Admin/articlesList');
@@ -157,11 +188,8 @@ class AdminController extends AbstractController
 
     public function categoriesList():string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
         return $this->twig->render("/Admin/categories_list.html.twig", [
@@ -171,11 +199,8 @@ class AdminController extends AbstractController
 
     public function categoriesAdd(): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["category_name"]) || !isset($_POST["category_name"])) {
@@ -194,11 +219,8 @@ class AdminController extends AbstractController
 
     public function categoriesEdit(int $id): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -222,11 +244,8 @@ class AdminController extends AbstractController
 
     public function categoriesDelete(int $id): void
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
@@ -234,11 +253,8 @@ class AdminController extends AbstractController
 
     public function commentsList(): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $commentsManager = new CommentsManager();
         $comments = $commentsManager->listComment();
         return $this->twig->render("/Admin/comments_list.html.twig", [
@@ -248,11 +264,8 @@ class AdminController extends AbstractController
 
     public function commentsDelete(int $id): void
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $commentsManager = new CommentsManager();
         $commentsManager->deleteComments($id);
         header("Location:/Admin/commentsList");
@@ -260,11 +273,8 @@ class AdminController extends AbstractController
 
     public function countriesList(): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectAll();
         return $this->twig->render("/Admin/countries_list.html.twig", [
@@ -272,14 +282,10 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     public function countriesAdd()
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
@@ -303,11 +309,8 @@ class AdminController extends AbstractController
 
     public function countriesEdit(int $id): string
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -335,11 +338,8 @@ class AdminController extends AbstractController
 
     public function countriesDelete(int $id): void
     {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
+        $this->isLog();
+        
         $countriesManager = new CountriesManager();
         $countriesManager->deleteCountry($id);
         header('Location:/Admin/countriesList');

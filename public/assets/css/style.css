@@ -122,6 +122,7 @@
     color: white;
 }
 
+
 .footer-socials a {
     margin: 0 10px;
 }
@@ -130,13 +131,8 @@
     height: 40px;
 }
 
-.footer-socials {
-
-}
-
 .logo {
     height: 250px;
-}
 
 .card {
     margin-bottom: 20px;
