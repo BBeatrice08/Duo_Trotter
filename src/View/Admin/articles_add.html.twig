@@ -4,14 +4,16 @@
 
 {% block content %}
     <div class ="main-container-add">
-    <form action="" method="POST" style="display:flex; flex-direction:column;">
+    <form action="" enctype="multipart/form-data" method="POST" style="display:flex; flex-direction:column;">
         <div class="form-group">
             <label for="title">Entrez le titre de l'article</label>
             <input type="text" class="form-control" name="article_title" id="title" placeholder="Entrez le titre de l'article">
         </div>
-        <div class="form-group">
-            <label for="image">Insérez une image</label>
-            <input type="text" class="form-control" name="article_image" id="image" placeholder="Insérez une image">
+        <div class="form-group" >
+            <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
+                <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
+                Sélectionner une image pour l'article : <input name="article_image" type="file" />
+
         </div>
         <div class="form-group">
             <label for="date">Entrez la date</label>

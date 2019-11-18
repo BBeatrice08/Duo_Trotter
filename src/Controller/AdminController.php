@@ -50,6 +50,9 @@ class AdminController extends AbstractController
         } else {
             header("Location: ../admin/login");
         }
+
+
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -62,19 +65,42 @@ class AdminController extends AbstractController
             if (empty($_POST["article_content"]) || !isset($_POST["article_content"])) {
                 $send = false;
             }
-            if ($send) {
-                $articlesManager = new ArticlesManager();
 
-                if ($articlesManager->insertArticle($_POST)) {
-                    header("Location:/Admin/articlesList");
+            if (!empty($_FILES)) {
+                if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    if ($_FILES['article_image']['size'] > 1000000) {
+                        $send = false;
+                        echo $_FILES['article_image']['name'] . "est trop lourd";
+                    } else {
+                        $tmpFilePath = $_FILES['article_image']['tmp_name'];
+                        if ($tmpFilePath != "") {
+                            $pathParts = pathinfo($_FILES['article_image']['name']);
+                            $filePath = uniqid("../public/assets/images/" . 'image' . true)
+                                . '.' . $pathParts['extension'];
+                            if (move_uploaded_file($tmpFilePath, $filePath)) {
+                                $send = true;
+                                echo "L'upload de " . $_FILES['article_image']['name'] . " s'est bien passé !";
+                                $articlesManager = new ArticlesManager();
+                                $_POST['article_image'] = $filePath;
+                                if ($articlesManager->insertArticle($_POST)) {
+                                    header("Location:/Admin/articlesList");
+                                }
+                            }
+                        }
+                    }
                 }
+            } elseif (!in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                echo "Mauvaise extension !";
             }
         }
+
+
         return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
         ]);
     }
+
 
     public function articlesEdit(int $id): string
     {
@@ -83,8 +109,10 @@ class AdminController extends AbstractController
         } else {
             header("Location: ../admin/login");
         }
+
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -97,12 +125,6 @@ class AdminController extends AbstractController
                 $send = false;
             } else {
                 $articles['id'] = $_POST["article_id"];
-            }
-
-            if (empty($_POST["article_image"]) || !isset($_POST["article_image"])) {
-                $send = false;
-            } else {
-                $articles['image'] = $_POST["article_image"];
             }
 
             if (empty($_POST["article_date"]) || !isset($_POST["article_date"])) {
@@ -130,18 +152,38 @@ class AdminController extends AbstractController
             }
 
             $articles['id'] = $_POST["article_id"];
+            if (!empty($_FILES)) {
+                if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    if ($_FILES['article_image']['size'] > 1000000) {
+                        $send = false;
+                        echo $_FILES['article_image']['name'] . "est trop lourd";
+                    } else {
+                        $tmpFilePath = $_FILES['article_image']['tmp_name'];
+                        if ($tmpFilePath != "") {
+                            $pathParts = pathinfo($_FILES['article_image']['name']);
+                            $filePath = uniqid("../public/assets/images/" . 'image' . true) . '.' .
+                                $pathParts['extension'];
+                            if (move_uploaded_file($tmpFilePath, $filePath)) {
+                                $send = true;
+                                echo "L'upload de " . $_FILES['article_image']['name'] . " s'est bien passé !";
 
-            if ($send) {
-                $articlesManager->updateArticle($articles);
-                header("Location:/Admin/articlesList");
+                                    $articlesManager = new ArticlesManager();
+                                    $_POST['article_image'] = $filePath;
+                                if ($articlesManager->updateArticle($_POST)) {
+                                        header("Location:/Admin/articlesList");
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-
         return $this->twig->render('Admin/articles_edit.html.twig', ['articles' => $articles,
             "countries" => $this->getCountries(),
             "categories" => $this->getCategories(),
-            ]);
+        ]);
     }
+
 
     public function articlesDelete(int $id): void
     {
@@ -244,7 +286,7 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/comments_list.html.twig", [
             "comments" => $comments,
         ]);
-    }  
+    }
 
     public function commentsDelete(int $id)
     {
