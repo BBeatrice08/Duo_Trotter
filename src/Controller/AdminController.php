@@ -246,7 +246,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function commentsDelete(int $id)
+    public function commentsDelete(int $id): void
     {
         session_start();
         if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
