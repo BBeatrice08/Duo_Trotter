@@ -1,8 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="container">
-        <div class="card">
+    <div class="sub-container">
+        <div class="form-container">
             <form method="post" action="../contact/sendmail">
                 <div class="form-group">
                     <label for="name">Votre nom</label>
@@ -16,8 +16,8 @@
                     <label for="message">Votre message</label>
                     <textarea class="form-control" name="message" id="message" rows="3"></textarea>
                 </div>
-                <div class="flex-button-article">
-                    <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                <div class="flex-button">
+                    <button type="submit" class="btn btn-primary button-center">Envoyer le message</button>
                 </div>
             </form>
         </div>

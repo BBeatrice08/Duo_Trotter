@@ -7,40 +7,42 @@
         <h2>Cet article n'existe pas !</h2>
         <h4>Il a peut-être été supprimé ou pas encore écrit !</h4>
     {% else %}
-        <div class = "articles-list">
-            <div class="article-card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="{{ articles.image }}" class="card-img" alt="Image d'illustration {{ article.title }}">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ articles.title }}</h5>
-                                <p class="card-text">{{ articles.content }}</p>
-                                <p class="card-text"><small class="text-muted">{{ articles.date }}</small></p>
-                                <div class="flex-button-article">
-                                    <a href="{{"/comments/add/" ~ articles.id }}"><button class="btn btn-primary btn-sm button-article">Ajouter un commentaire</button></a>
-                                </div>
+        <div class ="sub-container">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{{ articles.image }}" class="card-img" alt="Image d'illustration {{ article.title }}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ articles.title }}</h2>
+                            <p class="card-text">{{ articles.content }}</p>
+                            <p class="card-text"><small class="text-muted">{{ articles.date }}</small></p>
+                            <div class="flex-button">
+                                <a href="{{"/comments/add/" ~ articles.id }}"><button class="btn btn-primary btn-sm button-center">Ajouter un commentaire</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <div class = "comments">
         {% if comments is empty %}
-            <h3>Il n'y a pas encore de commentaires sur cette article !</h3>
+            <div class="sub-container">
+                <h3>Il n'y a pas encore de commentaires sur cette article !</h3>
+            </div>
         {% else %}
+            <div>
             <h3>Commentaires</h3>
-            <div class="card">
-            {% for comment in comments %}
-                    <h5 class="card-title">{{ comment.user_name }}</h5>
-                    <small>{{ comment.date }}</small>
-                    <p class="card-body">{{ comment.content }}</p>
-            {% endfor %}
+                {% for comment in comments %}
+                    <div class="card">
+                        <h5 class="comment-title">{{ comment.user_name }}</h5>
+                        <small>{{ comment.date }}</small>
+                        <p class="card-text">{{ comment.content }}</p>
+                    </div>
+                {% endfor %}
             </div>
         {% endif %}
         </div>
     {% endif %}
+    </div>
 {% endblock %}
