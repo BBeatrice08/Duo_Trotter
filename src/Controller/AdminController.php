@@ -75,7 +75,7 @@ class AdminController extends AbstractController
                         $tmpFilePath = $_FILES['article_image']['tmp_name'];
                         if ($tmpFilePath != "") {
                             $pathParts = pathinfo($_FILES['article_image']['name']);
-                            $filePath = uniqid("../public/assets/images/" . 'image' . true)
+                            $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true)
                                 . '.' . $pathParts['extension'];
                             if (move_uploaded_file($tmpFilePath, $filePath)) {
                                 $send = true;
@@ -161,7 +161,7 @@ class AdminController extends AbstractController
                         $tmpFilePath = $_FILES['article_image']['tmp_name'];
                         if ($tmpFilePath != "") {
                             $pathParts = pathinfo($_FILES['article_image']['name']);
-                            $filePath = uniqid("../public/assets/images/" . 'image' . true) . '.' .
+                            $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true) . '.' .
                                 $pathParts['extension'];
                             if (move_uploaded_file($tmpFilePath, $filePath)) {
                                 $send = true;
@@ -298,34 +298,5 @@ class AdminController extends AbstractController
         $commentsManager = new CommentsManager();
         $commentsManager->deleteComments($id);
         header("Location:/Admin/commentsList");
-    }
-
-
-    public function countriesAdd()
-    {
-        session_start();
-        if ($_SESSION['user'] == 'duotrotter' && $_SESSION['password'] == 'coucou2019') {
-        } else {
-            header("Location: ../admin/login");
-        }
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $send = true;
-            if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
-                $send = false;
-            }
-            if (empty($_POST["country_image"]) || !isset($_POST["country_image"])) {
-                $send = false;
-            }
-            if ($send) {
-                $countriesManager = new CountriesManager();
-
-                if ($countriesManager->insertCountry($_POST)) {
-                    header("Location:/Admin/articlesList");
-                }
-            }
-        }
-        return $this->twig->render("/Admin/countries_add.html.twig", [
-            "continents" => $this->getContinents(),
-        ]);
     }
 }
