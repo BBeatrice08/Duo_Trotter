@@ -11,11 +11,15 @@
                         <img src="{{ article.image }}" class="card-img" alt="Image d'illustration {{ article.title }}">
                     </div>
                     <div class="col-md-6">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ article.title }}</h5>
-                            <p class="card-text">{{ article.content|slice(0, 150) }}...</p>
-                            <a href="{{ "/articles/show/" ~ article.id }}"><button type="button" class="btn btn-primary btn-sm">Lire l'article</button></a>
-                            <p class="card-text"><small class="text-muted">{{ article.date }}</small></p>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.title }}</h5>
+                                <p class="card-text">{{ article.content|slice(0, 150) }}...</p>
+                                <p class="card-date"><small class="text-muted">{{ article.date }}</small></p>
+                                <div class="flex-button-article">
+                                    <a href="{{ "/articles/show/" ~ article.id }}"><button type="button" class="btn btn-primary btn-sm button-article">Lire l'article</button></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
