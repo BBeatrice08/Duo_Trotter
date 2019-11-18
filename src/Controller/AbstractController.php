@@ -45,12 +45,24 @@ abstract class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
+
+    public function getArticles(): array
+    {
+        $articlesManager = new articlesManager();
+        $articles = $articlesManager->selectAll();
+        return $articles;
+    }
+
+
+
+
     public function isLog(): void
     {
         if ($_SESSION['user'] !== ADMIN_LOGIN && $_SESSION['password'] !== ADMIN_PASSWORD) {
             header("Location: /admin/login");
         }
     }
+
 
     public function getCategories():array
     {
