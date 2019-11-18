@@ -50,16 +50,4 @@ class ArticlesController extends AbstractController
             "continents" => $this->getContinents(),
         ]);
     }
-
-    public function research(string $search): string
-    {
-
-        if (isset($_POST['search']) and !empty($_POST['search'])) {
-            $search = $_POST['search'];
-            $articlesManager = new ArticlesManager();
-            $articles = $articlesManager->searchArticle($search);
-            return $this->twig->render("Articles/results.html.twig", [
-                "articles" => $articles]);
-        }
-    }
 }

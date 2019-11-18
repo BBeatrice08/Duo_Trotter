@@ -45,6 +45,15 @@ abstract class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
+    public function getArticles(): array
+    {
+        $articlesManager = new articlesManager();
+        $articles = $articlesManager->selectAll();
+        return $articles;
+    }
+
+
+
     public function getCategories():array
     {
         $categoriesManager = new CategoriesManager();

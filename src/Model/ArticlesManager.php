@@ -47,9 +47,4 @@ class ArticlesManager extends AbstractManager
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
-
-    public function searchArticle(string $search) : array
-    {
-        return $this->pdo->query("SELECT * FROM articles WHERE title LIKE % . $search . %")->fetchAll();
-    }
 }
