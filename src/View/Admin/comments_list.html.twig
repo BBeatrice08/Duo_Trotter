@@ -7,9 +7,11 @@
         <div class = main-container-admin>
             <div class = main-container-admin-1>
                 {{ comment.date }} /
+                <strong>{{ comment.title }}</strong> /
                 {{ comment.user_name }} /
                 {{ comment.content }}
                 {{ articles.id }}
+
             </div>
             <div class = main-container-admin-2>
                 <a href="{{ "/Admin/commentsEdit/" ~ comment.id }}"><button type="button" class="btn btn-primary">Editer</button></a>
