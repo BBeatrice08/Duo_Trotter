@@ -73,7 +73,7 @@ abstract class AbstractController
         return $continents;
     }
 
-    public function getComments($id):array
+    public function getComments(int $id):array
     {
         $commentsManager = new CommentsManager();
         $comments = $commentsManager->selectAllByArticle($id);

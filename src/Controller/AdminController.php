@@ -144,6 +144,7 @@ class AdminController extends AbstractController
     public function categoriesList():string
     {
         $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
         return $this->twig->render("/Admin/categories_list.html.twig", [
@@ -154,6 +155,7 @@ class AdminController extends AbstractController
     public function categoriesAdd(): string
     {
         $this->isLog();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["category_name"]) || !isset($_POST["category_name"])) {
@@ -173,6 +175,7 @@ class AdminController extends AbstractController
     public function categoriesEdit(int $id): string
     {
         $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -197,6 +200,7 @@ class AdminController extends AbstractController
     public function categoriesDelete(int $id): void
     {
         $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
@@ -205,6 +209,7 @@ class AdminController extends AbstractController
     public function commentsList(): string
     {
         $this->isLog();
+
         $commentsManager = new CommentsManager();
         $comments = $commentsManager->listComment();
         return $this->twig->render("/Admin/comments_list.html.twig", [
@@ -215,6 +220,7 @@ class AdminController extends AbstractController
     public function commentsDelete(int $id)
     {
         $this->isLog();
+
         $commentsManager = new CommentsManager();
         $commentsManager->deleteComments($id);
         header("Location:/Admin/commentsList");
@@ -223,6 +229,7 @@ class AdminController extends AbstractController
     public function countriesList(): string
     {
         $this->isLog();
+
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectAll();
         return $this->twig->render("/Admin/countries_list.html.twig", [
@@ -258,6 +265,7 @@ class AdminController extends AbstractController
     public function countriesEdit(int $id): string
     {
         $this->isLog();
+
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -286,6 +294,7 @@ class AdminController extends AbstractController
     public function countriesDelete(int $id): void
     {
         $this->isLog();
+        
         $countriesManager = new CountriesManager();
         $countriesManager->deleteCountry($id);
         header('Location:/Admin/countriesList');
