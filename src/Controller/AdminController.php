@@ -6,11 +6,31 @@ use App\Model\AdminManager;
 use App\Model\ArticlesManager;
 use App\Model\CategoriesManager;
 use App\Model\CommentsManager;
+use App\Model\CountriesManager;
 
 class AdminController extends AbstractController
 {
+    public function login()
+    {
+        if (!empty($_POST)) {
+            if (isset($_POST['user']) || $_POST['password']) {
+                if ($_POST['user'] == ADMIN_LOGIN && $_POST['password'] == ADMIN_PASSWORD) {
+                    $_SESSION['user'] = $_POST['user'];
+                    $_SESSION['password'] = $_POST['password'];
+                    header('Location: /admin/articlesList');
+                } else {
+                    header('Location: /admin/login');
+                }
+            }
+        } else {
+            return $this->twig->render("/Admin/login.html.twig");
+        }
+    }
+
     public function articlesList(): string
     {
+        $this->isLog();
+
         $articlesManager = new AdminManager();
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("/Admin/articles_list.html.twig", [
@@ -20,6 +40,8 @@ class AdminController extends AbstractController
 
     public function articlesAdd(): string
     {
+        $this->isLog();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -40,18 +62,16 @@ class AdminController extends AbstractController
                 }
             }
         }
-
         return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
         ]);
     }
 
-
-
-
     public function articlesEdit(int $id): string
     {
+        $this->isLog();
+
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -114,6 +134,8 @@ class AdminController extends AbstractController
 
     public function articlesDelete(int $id): void
     {
+        $this->isLog();
+
         $articlesManager = new ArticlesManager();
         $articlesManager->deleteArticle($id);
         header('Location:/Admin/articlesList');
@@ -121,6 +143,8 @@ class AdminController extends AbstractController
 
     public function categoriesList():string
     {
+        $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectAll();
         return $this->twig->render("/Admin/categories_list.html.twig", [
@@ -130,6 +154,8 @@ class AdminController extends AbstractController
 
     public function categoriesAdd(): string
     {
+        $this->isLog();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["category_name"]) || !isset($_POST["category_name"])) {
@@ -148,6 +174,8 @@ class AdminController extends AbstractController
 
     public function categoriesEdit(int $id): string
     {
+        $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categories = $categoriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -171,6 +199,8 @@ class AdminController extends AbstractController
 
     public function categoriesDelete(int $id): void
     {
+        $this->isLog();
+
         $categoriesManager = new CategoriesManager();
         $categoriesManager->delete($id);
         header('Location:/Admin/categoriesList');
@@ -178,40 +208,95 @@ class AdminController extends AbstractController
 
     public function commentsList(): string
     {
+        $this->isLog();
+
         $commentsManager = new CommentsManager();
-        $comments = $commentsManager->selectAll();
+        $comments = $commentsManager->listComment();
         return $this->twig->render("/Admin/comments_list.html.twig", [
             "comments" => $comments,
         ]);
     }
 
-    public function commentsAdd(): string
+    public function commentsDelete(int $id)
     {
+        $this->isLog();
+
+        $commentsManager = new CommentsManager();
+        $commentsManager->deleteComments($id);
+        header("Location:/Admin/commentsList");
+    }
+
+    public function countriesList(): string
+    {
+        $this->isLog();
+
+        $countriesManager = new CountriesManager();
+        $countries = $countriesManager->selectAll();
+        return $this->twig->render("/Admin/countries_list.html.twig", [
+            "countries" => $countries,
+        ]);
+    }
+
+    public function countriesAdd()
+    {
+        $this->isLog();
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
-            if (empty($_POST["comment_user_name"]) || !isset($_POST["comment_user_name"])) {
+            if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
                 $send = false;
             }
-
-            if (empty($_POST["comment_date"]) || !isset($_POST["comment_date"])) {
-                $send = false;
-            }
-
-            if (empty($_POST["comment_content"]) || !isset($_POST["comment_content"])) {
+            if (empty($_POST["country_image"]) || !isset($_POST["country_image"])) {
                 $send = false;
             }
             if ($send) {
-                $commentsManager = new CommentsManager();
+                $countriesManager = new CountriesManager();
 
-                if ($commentsManager->insertComment($_POST)) {
-                    header("Location:/Admin/commentsList");
+                if ($countriesManager->insertCountry($_POST)) {
+                    header("Location:/Admin/countriesList");
                 }
             }
         }
-
-        return $this->twig->render("/Admin/comments_add.html.twig", [
-            "articles" => $this->getComments(),
-
+        return $this->twig->render("/Admin/countries_add.html.twig", [
+            "continents" => $this->getContinents(),
         ]);
+    }
+
+    public function countriesEdit(int $id): string
+    {
+        $this->isLog();
+
+        $countriesManager = new CountriesManager();
+        $countries = $countriesManager->selectOneById($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $send = true;
+
+            if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
+                $send = false;
+            }
+
+            if ($send) {
+                $countries['id'] = $_POST["country_id"];
+                $countries['name'] = $_POST["country_name"];
+                $countries['continent_id'] = $_POST["country_continent_id"];
+
+                $countriesManager->updateCountry($countries);
+                header("Location:/Admin/countriesList");
+            }
+        }
+
+        return $this->twig->render('/Admin/countries_edit.html.twig', [
+            'countries' => $countries,
+            "continents" => $this->getContinents(),
+        ]);
+    }
+
+    public function countriesDelete(int $id): void
+    {
+        $this->isLog();
+        
+        $countriesManager = new CountriesManager();
+        $countriesManager->deleteCountry($id);
+        header('Location:/Admin/countriesList');
     }
 }

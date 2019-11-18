@@ -1,0 +1,24 @@
+{% extends 'adminlayout.html.twig' %}
+
+{% block content %}
+    <div class ="main-container-add">
+        <div class="form-group">
+            <form action="" method="POST" style="display:flex; flex-direction:column;">
+                <div class="form-group">
+                    <label for="name">Entrez le nom du pays</label>
+                    <input type="hidden" class="form-control" value="{{ countries.id }}" name="country_id" id="id">
+                    <input type="text"  class="form-control" name="country_name" id="name" placeholder="Entrez le nom du pays" value="{{ countries.name }}">
+                </div>
+                <div class="form-group">
+                    <label for="continent">Sélectionnez le continent pour ce pays</label>
+                    <select name="country_continent_id" class="form-control" id="continent">
+                        {% for continent in continents %}
+                            <option value="{{ continent.id }}" {{ countries.continents_id == continent.id ? "selected" }} >{{ continent.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

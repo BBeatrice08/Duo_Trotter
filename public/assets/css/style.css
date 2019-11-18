@@ -11,62 +11,80 @@
     justify-content: center;
     align-items: center;
     margin : 0 20px 10px 20px;
-
 }
 
 .articles-list {
     margin : 30px 0;
-    text-align: center;
+    text-align: justify;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .article-card {
-    max-width: 800px;
-    border-radius: 20px;
-}
 
-.card h5 {
-    color : black;
+    border-radius: 20px;
+    margin-left : 30px;
+    margin-right: 30px;
 }
 
 .navbar {
     background-color: #085ea5;
 }
 
+.success {
+    margin : 50px;
+    display : flex;
+    justify-content: center;
+}
+
+.card-img {
+    max-width:100%;
+    height:auto;
+}
+
+.comments {
+    display : flex;
+    justify-content: center;
+}
+
 footer {
-    background-color: black;
-    border: solid black 1px;
-    border-radius: 4px;
+    background-color: #085ea5;
+}
+
+footer .list-unstyled li a {
+    color: lightblue;
+}
+
+footer .list-unstyled li a:hover {
+    color: white;
+}
+
+/* date copyright mention */
+.footer-copyright {
+    color: white;
 }
 
 .social-media-footer ul li {
     list-style: none;
 }
 
-footer .p{
-    color: white;
+.duo_trotter-link-footer {
+    color:lightblue;
 }
 
-footer .a{
-    color: white;
-}
-
-footer .h5{
-    color: white;
+.duo_trotter-link-footer:hover{
+    color:white;
+    font-weight: bold;
 }
 
 .facebook_footer, .pinterest_footer, .twitter_footer, .instagram_footer {
     height: 40px;
 }
 
-.links {
-    margin-left: 8%;
-}
-
 .social-media-footer {
     display: flex;
+    justify-content: center;
     flex-direction: row;
 }
 
@@ -77,6 +95,7 @@ footer .h5{
 .logo {
     height : 250px;
 }
+
 
 @media screen and (max-width: 575px) {
     .searchbar {
@@ -126,10 +145,22 @@ footer .h5{
     }
 
 
-
-    .social-media-footer {
-        margin: 5% 15% 0% 25%;
+    .links {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
     }
+
+    .list-unstyled {
+        justify-content:center;
+    }
+
+
+    .social-media-footer a:hover {
+        filter: drop-shadow(2px 2px 4px black);
+        transform: scale(1.1, 1.1);
+    }
+
 
     .general-header{
         background-image: url("/assets/images/banner.jpg");
