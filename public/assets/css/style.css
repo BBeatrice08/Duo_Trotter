@@ -122,7 +122,6 @@
     color: white;
 }
 
-
 .footer-socials a {
     margin: 0 10px;
 }
@@ -133,6 +132,7 @@
 
 .logo {
     height: 250px;
+}
 
 .card {
     margin-bottom: 20px;
@@ -144,7 +144,6 @@
 }
 
 @media only screen and (max-width: 575px) {
-
 
     .header-top {
         flex-direction: column;
@@ -168,10 +167,10 @@
         height: 40px;
         margin: 0 10px;
     }
-
 }
 
 @media screen and (min-width: 576px) {
+
     .biography {
         display: none;
     }
@@ -197,7 +196,6 @@
     .list-unstyled {
         justify-content:center;
     }
-
 
     .social-media-footer a:hover {
         filter: drop-shadow(2px 2px 4px black);
@@ -256,6 +254,7 @@
 }
 
 @media only screen and (min-width: 900px){
+
     .searchbar {
         display: block;
     }
