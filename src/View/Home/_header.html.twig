@@ -24,7 +24,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/about/index">Qui sommes-nous ? <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Destinations
                     </a>
@@ -34,7 +34,7 @@
                         {% endfor %}
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Thèmes
                     </a>
@@ -49,9 +49,8 @@
                 </li>
             </ul>
             <div class="searchbar">
-                <form class="form-inline my-1 my-lg-0" method="post" action="/results/research">
-                    <input class="form-control mr-sm-1"  type="text" placeholder="Rechercher" name="search" aria-label="Search">
-                    <button class="btn my-12 my-sm-0 bg-white" type="submit">Search</button>
+                <form class="form-inline my-1 my-lg-0 form-searchbar" >
+                    <input class="form-control mr-sm-1" type="search" placeholder="Rechercher un article" aria-label="Search">
                 </form>
             </div>
         </div>

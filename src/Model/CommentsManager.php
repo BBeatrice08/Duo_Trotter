@@ -14,7 +14,7 @@ class CommentsManager extends AbstractManager
     public function listComment(): array
     {
         $request = $this->pdo->prepare("
-        SELECT c.date, c.user_name, c.content, a.title
+        SELECT c.id, c.date, c.user_name, c.content, a.title
         FROM ".self::TABLE." c
             JOIN ".ArticlesManager::TABLE." a ON c.articles_id = a.id
             ORDER BY a.id DESC
@@ -36,7 +36,7 @@ class CommentsManager extends AbstractManager
         return $request->execute();
     }
 
-    public function deleteComments(int $id)
+    public function deleteComments(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM ".self::TABLE." WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);

@@ -262,7 +262,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function commentsDelete(int $id)
+    public function commentsDelete(int $id): void
     {
         $this->isLog();
 
