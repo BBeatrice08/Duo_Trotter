@@ -49,8 +49,9 @@
                 </li>
             </ul>
             <div class="searchbar">
-                <form class="form-inline my-1 my-lg-0 form-searchbar" >
-                    <input class="form-control mr-sm-1" type="search" placeholder="Rechercher un article" aria-label="Search">
+                <form class="form-inline my-1 my-lg-0" method="post" action="/results/research">
+                    <input class="form-control mr-sm-1"  type="text" placeholder="Rechercher" name="search" aria-label="Search">
+                    <button class="btn my-12 my-sm-0 bg-white" type="submit">Search</button>
                 </form>
             </div>
         </div>
