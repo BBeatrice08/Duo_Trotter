@@ -333,28 +333,45 @@ class AdminController extends AbstractController
     public function countriesEdit(int $id): string
     {
         $this->isLog();
-
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectOneById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $send = true;
-
             if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
                 $send = false;
             }
+            if (!empty($_FILES)) {
+                if (in_array($_FILES['country_image']['type'], $allowedExtensions)) {
+                    if ($_FILES['country_image']['size'] > 1000000) {
+                        echo $_FILES['country_image']['name'] . "est trop lourd";
+                    } else {
+                        $tmpFilePath = $_FILES['country_image']['tmp_name'];
+                        if ($tmpFilePath != "") {
+                            $pathParts = pathinfo($_FILES['country_image']['name']);
+                            $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true) . '.' .
+                                $pathParts['extension'];
+                            if (move_uploaded_file($tmpFilePath, $filePath)) {
+                                echo "L'upload de " . $_FILES['country_image']['name'] . " s'est bien passé !";
 
-            if ($send) {
-                $countries['id'] = $_POST["country_id"];
-                $countries['name'] = $_POST["country_name"];
-                $countries['continent_id'] = $_POST["country_continent_id"];
+                                $countriesManager = new CountriesManager();
+                                $_POST['country_image'] = $filePath;
+                                $countries['id'] = $_POST["country_id"];
+                                $countries['name'] = $_POST["country_name"];
+                                $countries['continent_id'] = $_POST["country_continent_id"];
+                                $countries['image'] = $_POST["country_image"];
 
-                $countriesManager->updateCountry($countries);
-                header("Location:/Admin/countriesList");
+                                if ($countriesManager->updateCountry($countries)) {
+                                    header("Location:/Admin/countriesList");
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-
-        return $this->twig->render('/Admin/countries_edit.html.twig', [
-            'countries' => $countries,
+        return $this->twig->render('Admin/countries_edit.html.twig', ['countries' => $countries,
+            "categories" => $this->getCategories(),
             "continents" => $this->getContinents(),
         ]);
     }
