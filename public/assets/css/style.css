@@ -90,13 +90,13 @@
     height: 250px;
 }
 
-
 .comments {
     display : flex;
     justify-content: center;
 }
 
 .footer {
+    margin-top: 100px;
     background-color: #085ea5;
 }
 
@@ -114,8 +114,10 @@
     color: white;
 }
 
-.footer a:hover {
-    text-decoration: underline;
+.footer-links a:hover {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
 }
 
 .footer-copyright {
@@ -141,6 +143,12 @@
 .searchbar {
     display: flex;
     justify-content: center;
+}
+
+.space {
+    display: block;
+    height: 500px;
+    border: 1px solid black;
 }
 
 @media only screen and (max-width: 575px) {
@@ -251,11 +259,26 @@
     .form {
         width: 650px
     }
+
+    .footer {
+        margin-top: 300px;
+    }
 }
 
 @media only screen and (min-width: 900px){
 
     .searchbar {
         display: block;
+    }
+
+    .footer {
+        margin-top: 500px;
+    }
+}
+
+@media only screen and (min-width: 900px){
+
+    .footer {
+        margin-top: 600px;
     }
 }
