@@ -6,6 +6,21 @@
     background-color: #085ea5;
 }
 
+.row-countries {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.row-countries .col-sm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-right: 0;
+}
+
 .header-top {
     display: flex;
     justify-content: center;
@@ -325,6 +340,11 @@
         display: flex;
         flex-direction: column;
     }
+
+
+
+
+
 
     .card {
         width: 600px;
