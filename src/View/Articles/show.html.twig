@@ -16,6 +16,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="card-title">{{ articles.title }}</h2>
+
+                            <!-- Tag in progress Guillaume -->
+                                {% if article.categories_id == category.id %}
+                                    <a href="{{ "/articles/showbycategory/" ~ category.id }}"> #{{ category.name }} </a>
+                                {% endif %}
+
                             <p class="card-text">{{ articles.content }}</p>
                             <p class="card-text"><small class="text-muted">{{ articles.date }}</small></p>
                             <div class="flex-button">
