@@ -39,11 +39,14 @@ class CountriesManager extends AbstractManager
     */
     public function updateCountry(array $countries):bool
     {
-        $statement = $this->pdo->prepare("UPDATE $this->table 
-        SET `name` = :name, `continents_id` = :continents_id WHERE id=:id");
+
+        $statement = $this->pdo->prepare("UPDATE $this->table SET `name` = :name, `image` = :image, 
+                 `continents_id` = :continents_id
+                WHERE id=:id");
         $statement->bindValue('id', $countries['id'], \PDO::PARAM_INT);
         $statement->bindValue('name', $countries['name'], \PDO::PARAM_STR);
         $statement->bindValue('continents_id', $countries['continent_id'], \PDO::PARAM_INT);
+        $statement->bindValue('image', $countries['image'], \PDO::PARAM_STR);
 
         return $statement->execute();
     }
