@@ -290,6 +290,7 @@
 
      .card-img {
          width: 600px !important;
+         object-fit: cover;
          margin: 0 auto;
     }
 }
