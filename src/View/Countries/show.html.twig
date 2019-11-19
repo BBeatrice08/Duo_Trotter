@@ -8,7 +8,7 @@
             {% for country in countries %}
                 <div class="col-sm">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{ country.image }}" class="card-img-top" alt="{{ country.name}} landscape">
+                        <img src="{{ country.image[9:] }}" class="card-img-top" alt="{{ country.name}} landscape">
                         <div class="card-body">
                             <h5 class="card-title">{{ country.name }}</h5>
                             <a href="{{ "/articles/showbycountry/" ~ country.id }}" class="btn btn-primary">Voir les articles</a>
