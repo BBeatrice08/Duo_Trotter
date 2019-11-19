@@ -13,6 +13,10 @@
     margin : 0 25px;
 }
 
+.navbar-collapse a:hover {
+    font-weight: bold;
+}
+
 .nav-item a {
     text-align: center;
 }
@@ -147,10 +151,24 @@
     justify-content: center;
 }
 
-.space {
-    display: block;
-    height: 500px;
-    border: 1px solid black;
+.container {
+    min-height: 400px;
+}
+
+.logo {
+    height: 250px;
+}
+.logo:hover {
+    animation-duration: 3s;
+    animation-name: logoRotation;
+}
+@keyframes logoRotation {
+    from {
+        transform: rotate(1deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
 }
 
 @media only screen and (max-width: 575px) {
@@ -275,9 +293,6 @@
         width: 650px
     }
 
-    .footer {
-        margin-top: 300px;
-    }
 }
 
 @media only screen and (min-width: 765px){
@@ -292,6 +307,7 @@
 
      .card-img {
          width: 600px !important;
+         object-fit: cover;
          margin: 0 auto;
     }
 }
@@ -302,17 +318,10 @@
         display: block;
     }
 
-    .footer {
-        margin-top: 500px;
-    }
 }
 
 
 @media only screen and (min-width: 1000px){
-
-    .footer {
-        margin-top: 600px;
-    }
 
     .card {
         width: 800px;
@@ -325,6 +334,7 @@
 }
 
 @media only screen and (min-width: 1200px) {
+
     .card {
         width: 1000px;
     }
