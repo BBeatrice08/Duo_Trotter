@@ -57,6 +57,8 @@ class ContactController extends AbstractController
             "nameError" => $nameError,
             "emailError" => $emailError,
             "messageError" => $messageError,
+            ]);
+    }
 
 
     /** Get "destinations" and "thèmes" in menu when form is submitted */
