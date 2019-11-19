@@ -18,10 +18,11 @@
                             <h2 class="card-title">{{ articles.title }}</h2>
 
                             <!-- Tag in progress Guillaume -->
-                                {% if article.categories_id == category.id %}
+                           {% for category in categories %}
+                                {% if articles.categories_id == category.id %}
                                     <a href="{{ "/articles/showbycategory/" ~ category.id }}"> #{{ category.name }} </a>
                                 {% endif %}
-
+                           {% endfor %}
                             <p class="card-text">{{ articles.content }}</p>
                             <p class="card-text"><small class="text-muted">{{ articles.date }}</small></p>
                             <div class="flex-button">
