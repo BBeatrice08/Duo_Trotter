@@ -11,7 +11,9 @@ use App\Model\CountriesManager;
 class AdminController extends AbstractController
 {
 
-
+    /**
+     * Form to log in in administrator panel
+     */
     public function login()
     {
         if (!empty($_POST)) {
@@ -29,6 +31,13 @@ class AdminController extends AbstractController
         }
     }
 
+    /**
+     * Methods below give possibility to add, modify or delete an article and a category for the administrator
+     */
+
+    /**
+     * Show all articles in administrator panel
+    */
     public function articlesList(): string
     {
         $this->isLog();
@@ -40,13 +49,12 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Add a new article
+    */
     public function articlesAdd(): string
     {
-
-
         $this->isLog();
-        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
-
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
@@ -61,8 +69,14 @@ class AdminController extends AbstractController
                 $send = false;
             }
 
+            // To upload photo in the new article, depending extension and size
+
+            // Type of file allowed
+            $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
+
             if (!empty($_FILES)) {
                 if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    /* Size file allowed */
                     if ($_FILES['article_image']['size'] > 1000000) {
                         $send = false;
                         echo $_FILES['article_image']['name'] . "est trop lourd";
@@ -96,14 +110,16 @@ class AdminController extends AbstractController
         ]);
     }
 
-
+    /**
+     * To modify an article by ID and changed title, date, category, country, content or image
+    */
     public function articlesEdit(int $id): string
     {
-
         $this->isLog();
-        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
+
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -142,6 +158,9 @@ class AdminController extends AbstractController
                 $articles['content'] = $_POST["article_content"];
             }
 
+            // To upload a new photo depending of size or extension
+            $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
+
             $articles['id'] = $_POST["article_id"];
             if (!empty($_FILES)) {
                 if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
@@ -175,7 +194,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-
+    /**
+     * Delete an article by ID
+     */
     public function articlesDelete(int $id): void
     {
         $this->isLog();
@@ -185,6 +206,13 @@ class AdminController extends AbstractController
         header('Location:/Admin/articlesList');
     }
 
+    /**
+     * Give the possibility to see, add, edit or delete a category for the administrator
+     */
+
+    /**
+     * List all categories
+    */
     public function categoriesList():string
     {
         $this->isLog();
@@ -196,6 +224,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Add a new category
+     */
     public function categoriesAdd(): string
     {
         $this->isLog();
@@ -216,6 +247,9 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/categories_add.html.twig");
     }
 
+    /**
+     * Modify a category by ID
+     */
     public function categoriesEdit(int $id): string
     {
         $this->isLog();
@@ -241,6 +275,9 @@ class AdminController extends AbstractController
         return $this->twig->render('/Admin/categories_edit.html.twig', ['categories' => $categories]);
     }
 
+    /**
+     * Delete a category by ID
+     */
     public function categoriesDelete(int $id): void
     {
         $this->isLog();
@@ -250,6 +287,13 @@ class AdminController extends AbstractController
         header('Location:/Admin/categoriesList');
     }
 
+    /**
+     * Give the possibility to see all the comments by article by ID
+     */
+
+    /**
+     * List all comments
+    */
     public function commentsList(): string
     {
         $this->isLog();
@@ -261,6 +305,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete a comment by article by ID for the administrator
+     */
     public function commentsDelete(int $id): void
     {
         $this->isLog();
@@ -270,6 +317,9 @@ class AdminController extends AbstractController
         header("Location:/Admin/commentsList");
     }
 
+    /**
+     * List all countries
+     */
     public function countriesList(): string
     {
         $this->isLog();
@@ -281,6 +331,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Add a new country
+     */
     public function countriesAdd()
     {
         $this->isLog();
@@ -329,7 +382,9 @@ class AdminController extends AbstractController
             ]);
     }
 
-
+    /**
+     * Modify an existing country by ID
+    */
     public function countriesEdit(int $id): string
     {
         $this->isLog();
@@ -376,6 +431,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete an existing country by ID
+    */
     public function countriesDelete(int $id): void
     {
         $this->isLog();

@@ -11,6 +11,9 @@ class CommentsManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+    /**
+     * Get all comments by article by ID from database
+    */
     public function listComment(): array
     {
         $request = $this->pdo->prepare("
@@ -25,6 +28,9 @@ class CommentsManager extends AbstractManager
         return $request->fetchAll();
     }
 
+    /**
+     * Add a new comment in table comment in database by giving a user_name and a content.
+    */
     public function insertComment(array $comments): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (user_name, date, content, articles_id) VALUES
@@ -36,6 +42,9 @@ class CommentsManager extends AbstractManager
         return $request->execute();
     }
 
+    /**
+     * Delete a comment by ID in table comments in database
+    */
     public function deleteComments(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM ".self::TABLE." WHERE id=:id");

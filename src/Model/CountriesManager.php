@@ -11,12 +11,18 @@ class CountriesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+    /**
+     * Get all continents from database
+    */
     public function selectAllByContinent(int $id): array
     {
         // prepared request
         return $this->pdo->query("SELECT * FROM $this->table WHERE continents_id = $id ")->fetchAll();
     }
 
+    /**
+     * Add a new country in database
+    */
     public function insertCountry(array $country): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (name, continents_id, image) VALUES 
@@ -28,8 +34,12 @@ class CountriesManager extends AbstractManager
         return $request->execute();
     }
 
+    /**
+     * Modify a country in database by ID
+    */
     public function updateCountry(array $countries):bool
     {
+
         $statement = $this->pdo->prepare("UPDATE $this->table SET `name` = :name, `image` = :image, 
                  `continents_id` = :continents_id
                 WHERE id=:id");
@@ -41,6 +51,9 @@ class CountriesManager extends AbstractManager
         return $statement->execute();
     }
 
+    /**
+     * Delete a country from database by ID
+    */
     public function deleteCountry(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");

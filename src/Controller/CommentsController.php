@@ -8,6 +8,9 @@ use App\Model\CountriesManager;
 
 class CommentsController extends AbstractController
 {
+    /**
+     * Give the possibility to the visitor to post a comment on an article
+    */
     public function add(int $id): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
