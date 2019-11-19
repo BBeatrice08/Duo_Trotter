@@ -3,7 +3,6 @@
 {% block title %}Tous les articles{% endblock %}
 
 
-
 {% block content %}
     <div class ="sub-container">
         {% for article in articles %}
@@ -16,8 +15,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ article.title }}</h5>
-                                {{ dump(categories.id) }}
-
+                                {% for category in categories %}
+                                    {% if article.categories_id == category.id %}
+                                        <a href="{{ "/articles/showbycategory/" ~ category.id }}"> #{{ category.name }} </a>
+                                    {% endif %}
+                                {% endfor %}
                                 <p class="card-text">{{ article.content|slice(0, 150) }}...</p>
                                 <p class="card-date"><small class="text-muted">{{ article.date }}</small></p>
                                 <div class="flex-button">
