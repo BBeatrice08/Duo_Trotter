@@ -310,6 +310,12 @@
          object-fit: cover;
          margin: 0 auto;
     }
+    .preview{
+        width: 600px !important;
+        object-fit: cover;
+        margin: 0 auto;
+        height:auto;
+    }
 }
 
 @media only screen and (min-width: 900px){
