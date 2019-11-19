@@ -104,7 +104,6 @@ class AdminController extends AbstractController
         $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
-        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -285,27 +284,51 @@ class AdminController extends AbstractController
     public function countriesAdd()
     {
         $this->isLog();
+        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
                 $send = false;
             }
-            if (empty($_POST["country_image"]) || !isset($_POST["country_image"])) {
+            if (empty($_POST["continents_id"]) || !isset($_POST["continents_id"])) {
                 $send = false;
             }
-            if ($send) {
-                $countriesManager = new CountriesManager();
 
-                if ($countriesManager->insertCountry($_POST)) {
-                    header("Location:/Admin/countriesList");
+            if (!empty($_FILES)) {
+                if (in_array($_FILES['country_image']['type'], $allowedExtensions)) {
+                    if ($_FILES['country_image']['size'] > 1000000) {
+                        echo $_FILES['country_image']['name'] . "est trop lourd";
+                    } else {
+                        $tmpFilePath = $_FILES['country_image']['tmp_name'];
+                        if ($tmpFilePath != "") {
+                            $pathParts = pathinfo($_FILES['country_image']['name']);
+                            $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true) . '.' .
+                                $pathParts['extension'];
+                            if (move_uploaded_file($tmpFilePath, $filePath)) {
+                                echo "L'upload de " . $_FILES['country_image']['name'] . " s'est bien passé !";
+                                $countriesManager = new CountriesManager();
+                                $_POST['country_image'] = $filePath;
+                                if ($countriesManager->insertCountry($_POST)) {
+                                    header("Location:/Admin/countriesList");
+                                }
+                            }
+                        }
+                    }
                 }
+            } elseif (!in_array($_FILES['country_image']['type'], $allowedExtensions)) {
+                echo "Mauvaise extension !";
             }
         }
-        return $this->twig->render("/Admin/countries_add.html.twig", [
-            "continents" => $this->getContinents(),
-        ]);
+
+            return $this->twig->render("/Admin/countries_add.html.twig", [
+                "categories" => $this->getCategories(),
+                "continents" => $this->getContinents(),
+                "countries" => $this->getCountries(),
+
+            ]);
     }
+
 
     public function countriesEdit(int $id): string
     {
