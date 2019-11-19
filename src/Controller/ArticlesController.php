@@ -6,9 +6,11 @@ use App\Model\ArticlesManager;
 
 class ArticlesController extends AbstractController
 {
+    /**
+     * Show all articles
+    */
     public function list(): string
     {
-        // Show all the different articles
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("Articles/list.html.twig", [
@@ -18,6 +20,9 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    /**
+     * Show an article by ID
+    */
     public function show(int $id): string
     {
         $articlesManager = new ArticlesManager();
@@ -30,7 +35,9 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    // Show all articles for a country
+    /**
+     *  Show all articles by country by ID
+    */
     public function showByCountry(int $id): string
     {
         $articlesManager = new ArticlesManager();
@@ -42,7 +49,9 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    // Show all articles for a category
+    /**
+     * Show all articles by category by ID
+    */
     public function showByCategory(int $id): string
     {
         $articlesManager = new ArticlesManager();

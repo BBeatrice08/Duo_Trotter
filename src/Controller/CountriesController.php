@@ -6,7 +6,9 @@ use App\Model\CountriesManager;
 
 class CountriesController extends AbstractController
 {
-    // Show all countries in a continent
+    /**
+     *  Show all countries by continent by ID
+    */
     public function show(int $id): string
     {
         $countriesManager = new CountriesManager();

@@ -12,7 +12,7 @@ class CommentsManager extends AbstractManager
     }
 
     /**
-     * Get all comments of an article from database
+     * Get all comments by article by ID from database
     */
     public function listComment(): array
     {

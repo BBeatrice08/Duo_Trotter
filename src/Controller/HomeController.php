@@ -23,7 +23,9 @@ class HomeController extends AbstractController
      */
     public function index(): string
     {
-        // In home, give the 5 lasts articles published, categories and countries mixed
+        /**
+         * In home page, give the 5 lasts articles published, categories and countries mixed
+        */
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAllLimit(5);
         return $this->twig->render('Articles/list.html.twig', [

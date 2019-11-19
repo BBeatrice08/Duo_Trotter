@@ -12,7 +12,7 @@ class CountriesManager extends AbstractManager
     }
 
     /**
-     * Get all continents from database by IDDelete a comment by ID in table comments in database
+     * Get all continents from database
     */
     public function selectAllByContinent(int $id): array
     {

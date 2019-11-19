@@ -8,7 +8,9 @@ use App\Model\AbstractManager;
 
 class ResultsController extends AbstractController
 {
-    // Get an article in the search bar
+    /**
+     * Look for an article in the search bar
+    */
     public function research(): string
     {
         if (isset($_POST['search']) and !empty($_POST['search'])) {
