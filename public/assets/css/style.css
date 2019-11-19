@@ -104,7 +104,15 @@
     background-color: #085ea5;
 }
 
+.instagram-integration {
+    width : 50%;
+    margin:auto;
+}
 
+.instagram-integration h2 {
+   text-align: center;
+    color : white;
+}
 
 .footer-links {
     display: flex;
@@ -173,6 +181,11 @@
 
 @media only screen and (max-width: 575px) {
 
+    .instagram-integration {
+        width : 100%;
+        margin:auto;
+    }
+
     .header-top {
         flex-direction: column;
     }
@@ -197,7 +210,14 @@
     }
 }
 
+
+
 @media screen and (min-width: 576px) {
+
+    .instagram-integration {
+        width : 40%;
+        margin:auto;
+    }
 
     .navbar {
         margin-bottom: 50px;
@@ -276,6 +296,11 @@
 }
 
 @media only screen and (min-width: 700px){
+
+    .instagram-integration {
+        width : 50%;
+        margin:auto;
+    }
 
     .footer-links {
         display: flex;
