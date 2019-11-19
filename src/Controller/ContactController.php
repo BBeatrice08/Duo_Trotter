@@ -11,6 +11,7 @@ class ContactController extends AbstractController
 {
     public function index(): string
     {
+
         $nameError = "";
         $emailError = "";
         $messageError = "";
