@@ -11,12 +11,18 @@ class CountriesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+    /**
+     * Get all continents from database by IDDelete a comment by ID in table comments in database
+    */
     public function selectAllByContinent(int $id): array
     {
         // prepared request
         return $this->pdo->query("SELECT * FROM $this->table WHERE continents_id = $id ")->fetchAll();
     }
 
+    /**
+     * Add a new country in database
+    */
     public function insertCountry(array $country): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (name, continents_id, image) VALUES 
@@ -28,10 +34,13 @@ class CountriesManager extends AbstractManager
         return $request->execute();
     }
 
+    /**
+     * Modify a country in database by ID
+    */
     public function updateCountry(array $countries):bool
     {
         $statement = $this->pdo->prepare("UPDATE $this->table 
-SET `name` = :name, `continents_id` = :continents_id WHERE id=:id");
+        SET `name` = :name, `continents_id` = :continents_id WHERE id=:id");
         $statement->bindValue('id', $countries['id'], \PDO::PARAM_INT);
         $statement->bindValue('name', $countries['name'], \PDO::PARAM_STR);
         $statement->bindValue('continents_id', $countries['continent_id'], \PDO::PARAM_INT);
@@ -39,6 +48,9 @@ SET `name` = :name, `continents_id` = :continents_id WHERE id=:id");
         return $statement->execute();
     }
 
+    /**
+     * Delete a country from database by ID
+    */
     public function deleteCountry(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");

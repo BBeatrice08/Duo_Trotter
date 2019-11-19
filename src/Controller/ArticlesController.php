@@ -8,6 +8,7 @@ class ArticlesController extends AbstractController
 {
     public function list(): string
     {
+        // Show all the different articles
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectAllByDate();
         return $this->twig->render("Articles/list.html.twig", [
@@ -29,6 +30,7 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    // Show all articles for a country
     public function showByCountry(int $id): string
     {
         $articlesManager = new ArticlesManager();
@@ -40,6 +42,7 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    // Show all articles for a category
     public function showByCategory(int $id): string
     {
         $articlesManager = new ArticlesManager();

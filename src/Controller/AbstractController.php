@@ -45,24 +45,20 @@ abstract class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
-
-    public function getArticles(): array
-    {
-        $articlesManager = new articlesManager();
-        $articles = $articlesManager->selectAll();
-        return $articles;
-    }
-
-
-
-
+    // Allow administrator to log in if user and password are corrects
     public function isLog(): void
     {
         if ($_SESSION['user'] !== ADMIN_LOGIN && $_SESSION['password'] !== ADMIN_PASSWORD) {
             header("Location: /admin/login");
         }
     }
-
+    // To get all the different articles from database
+    public function getArticles(): array
+    {
+        $articlesManager = new articlesManager();
+        $articles = $articlesManager->selectAll();
+        return $articles;
+    }
 
     public function getCategories():array
     {
@@ -71,6 +67,7 @@ abstract class AbstractController
         return $categories;
     }
 
+    // To get all the different countries in a alphabetical order
     public function getCountries():array
     {
         $countriesManager = new CountriesManager();
@@ -85,6 +82,7 @@ abstract class AbstractController
         return $continents;
     }
 
+    // To get all the comments for each article, one by one
     public function getComments(int $id):array
     {
         $commentsManager = new CommentsManager();

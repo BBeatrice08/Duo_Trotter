@@ -11,6 +11,10 @@ class ArticlesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+    /**
+     * Add an new article by giving a title, an image, a date, a content and injected in database in table article.
+     * New IDs are automatically create in article table
+     */
     public function insertArticle(array $article): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." 
@@ -26,6 +30,9 @@ class ArticlesManager extends AbstractManager
         return $request->execute();
     }
 
+    /**
+     * Modify an article by ID by changing title, article, date or content and update in database.
+    */
     public function updateArticle(array $articles): bool
     {
         $statement = $this->pdo->prepare("UPDATE $this->table SET `title` = :title, `date` =:date,`image` = :image,  
@@ -41,6 +48,9 @@ class ArticlesManager extends AbstractManager
         return $statement->execute();
     }
 
+    /**
+     * Delete an article by ID in table article in database
+    */
     public function deleteArticle(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");

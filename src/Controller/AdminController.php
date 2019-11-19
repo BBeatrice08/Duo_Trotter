@@ -11,7 +11,6 @@ use App\Model\CountriesManager;
 class AdminController extends AbstractController
 {
 
-
     public function login()
     {
         if (!empty($_POST)) {
@@ -29,6 +28,9 @@ class AdminController extends AbstractController
         }
     }
 
+    // Give possibility to add, modify or delete an article for the administrator
+
+    // List all articles in administrator panel
     public function articlesList(): string
     {
         $this->isLog();
@@ -42,11 +44,7 @@ class AdminController extends AbstractController
 
     public function articlesAdd(): string
     {
-
-
         $this->isLog();
-        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
-
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
@@ -61,8 +59,14 @@ class AdminController extends AbstractController
                 $send = false;
             }
 
+            // To upload photo in the new article, depending extension and size
+
+            // Type of file allowed
+            $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
+
             if (!empty($_FILES)) {
                 if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    /* Size file allowed */
                     if ($_FILES['article_image']['size'] > 1000000) {
                         $send = false;
                         echo $_FILES['article_image']['name'] . "est trop lourd";
@@ -96,15 +100,14 @@ class AdminController extends AbstractController
         ]);
     }
 
-
+    // To modify an article
     public function articlesEdit(int $id): string
     {
-
         $this->isLog();
-        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg' ];
+
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
-        $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -142,6 +145,9 @@ class AdminController extends AbstractController
             } else {
                 $articles['content'] = $_POST["article_content"];
             }
+
+            // To upload a new photo depending of size or extension
+            $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
 
             $articles['id'] = $_POST["article_id"];
             if (!empty($_FILES)) {
@@ -185,6 +191,8 @@ class AdminController extends AbstractController
         $articlesManager->deleteArticle($id);
         header('Location:/Admin/articlesList');
     }
+
+    // Give the possibility to see, add, edit or delete a category for the administrator
 
     public function categoriesList():string
     {
@@ -251,6 +259,9 @@ class AdminController extends AbstractController
         header('Location:/Admin/categoriesList');
     }
 
+    /* Give the possibility to see all the comments for each article and
+    delete them if necessary for the administrator */
+
     public function commentsList(): string
     {
         $this->isLog();
@@ -270,6 +281,8 @@ class AdminController extends AbstractController
         $commentsManager->deleteComments($id);
         header("Location:/Admin/commentsList");
     }
+
+    /* Give the possibility to see, add, modify or delete a country for the administrator */
 
     public function countriesList(): string
     {
