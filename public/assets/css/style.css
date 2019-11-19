@@ -90,13 +90,13 @@
     height: 250px;
 }
 
-
 .comments {
     display : flex;
     justify-content: center;
 }
 
 .footer {
+    margin-top: 100px;
     background-color: #085ea5;
 }
 
@@ -114,8 +114,10 @@
     color: white;
 }
 
-.footer a:hover {
-    text-decoration: underline;
+.footer-links a:hover {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
 }
 
 .footer-copyright {
@@ -141,6 +143,12 @@
 .searchbar {
     display: flex;
     justify-content: center;
+}
+
+.space {
+    display: block;
+    height: 500px;
+    border: 1px solid black;
 }
 
 @media only screen and (max-width: 575px) {
@@ -170,6 +178,10 @@
 }
 
 @media screen and (min-width: 576px) {
+
+    .navbar {
+        margin-bottom: 50px;
+    }
 
     .biography {
         display: none;
@@ -232,6 +244,15 @@
         margin: 20px 0;
         width: 500px
     }
+
+    .card {
+        width: 500px;
+        margin: 50px 0;
+    }
+
+    .card-img {
+        margin-bottom: -50px !important;
+    }
 }
 
 @media only screen and (min-width: 700px){
@@ -251,6 +272,26 @@
     .form {
         width: 650px
     }
+
+    .footer {
+        margin-top: 300px;
+    }
+}
+
+@media only screen and (min-width: 765px){
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card {
+        width: 600px;
+    }
+
+     .card-img {
+         width: 600px !important;
+         margin: 0 auto;
+    }
 }
 
 @media only screen and (min-width: 900px){
@@ -258,4 +299,36 @@
     .searchbar {
         display: block;
     }
+
+    .footer {
+        margin-top: 500px;
+    }
+}
+
+
+@media only screen and (min-width: 1000px){
+
+    .footer {
+        margin-top: 600px;
+    }
+
+    .card {
+        width: 800px;
+    }
+
+    .card-img {
+        width: 800px !important;
+    }
+
+}
+
+@media only screen and (min-width: 1200px) {
+    .card {
+        width: 1000px;
+    }
+
+    .card-img {
+        width: 1000px !important;
+    }
+
 }
