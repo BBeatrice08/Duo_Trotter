@@ -55,7 +55,7 @@ class AdminController extends AbstractController
     public function articlesAdd(): string
     {
         $this->isLog();
-
+        $error = '';
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $send = true;
             if (empty($_POST["article_title"]) || !isset($_POST["article_title"])) {
@@ -79,7 +79,7 @@ class AdminController extends AbstractController
                     /* Size file allowed */
                     if ($_FILES['article_image']['size'] > 1000000) {
                         $send = false;
-                        return $_FILES['article_image']['name'] . "est trop lourd";
+                        $error = "Ce fichier est trop lourd !";
                     } else {
                         $tmpFilePath = $_FILES['article_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -96,9 +96,9 @@ class AdminController extends AbstractController
                             }
                         }
                     }
+                } elseif (!in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    $error = "Ce fichier a une mauvaise extension. Extensions autorisées :  jpeg, jpg, gif, png.";
                 }
-            } elseif (!in_array($_FILES['article_image']['type'], $allowedExtensions)) {
-                return "Mauvaise extension !";
             }
         }
 
@@ -106,6 +106,7 @@ class AdminController extends AbstractController
         return $this->twig->render("/Admin/articles_add.html.twig", [
             "categories" => $this->getCategories(),
             "countries" => $this->getCountries(),
+            "error" => $error
         ]);
     }
 
@@ -115,7 +116,7 @@ class AdminController extends AbstractController
     public function articlesEdit(int $id): string
     {
         $this->isLog();
-
+        $error = 'false';
         $articlesManager = new ArticlesManager();
         $articles = $articlesManager->selectOneById($id);
 
@@ -165,7 +166,7 @@ class AdminController extends AbstractController
                 if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
                     if ($_FILES['article_image']['size'] > 1000000) {
                         $send = false;
-                        return $_FILES['article_image']['name'] . "est trop lourd";
+                        $error = "Ce fichier est trop lourd !";
                     } else {
                         $tmpFilePath = $_FILES['article_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -176,21 +177,24 @@ class AdminController extends AbstractController
                                 $send = true;
 
 
-                                    $articlesManager = new ArticlesManager();
-                                    $_POST['article_image'] = $filePath;
+                                $articlesManager = new ArticlesManager();
+                                $_POST['article_image'] = $filePath;
                                 if ($articlesManager->updateArticle($_POST)) {
-                                        header("Location:/Admin/articlesList");
+                                    header("Location:/Admin/articlesList");
                                 }
                             }
                         }
                     }
+                } elseif (!in_array($_FILES['article_image']['type'], $allowedExtensions)) {
+                    $error = "Ce fichier a une mauvaise extension. Extensions autorisées :  jpeg, jpg, gif, png.";
                 }
             }
         }
-        return $this->twig->render('Admin/articles_edit.html.twig', ['articles' => $articles,
-            "countries" => $this->getCountries(),
-            "categories" => $this->getCategories(),
-        ]);
+            return $this->twig->render('Admin/articles_edit.html.twig', ['articles' => $articles,
+                "countries" => $this->getCountries(),
+                "categories" => $this->getCategories(),
+                "error" => $error
+            ]);
     }
 
     /**
@@ -335,6 +339,7 @@ class AdminController extends AbstractController
      */
     public function countriesAdd()
     {
+        $error ='';
         $this->isLog();
         $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -348,7 +353,7 @@ class AdminController extends AbstractController
             if (!empty($_FILES)) {
                 if (in_array($_FILES['country_image']['type'], $allowedExtensions)) {
                     if ($_FILES['country_image']['size'] > 1000000) {
-                        return $_FILES['country_image']['name'] . "est trop lourd";
+                        $error = "Ce fichier trop lourd !";
                     } else {
                         $tmpFilePath = $_FILES['country_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -364,9 +369,9 @@ class AdminController extends AbstractController
                             }
                         }
                     }
+                } elseif (!in_array($_FILES['country_image']['type'], $allowedExtensions)) {
+                    $error = "Ce fichier a une mauvaise extension. Extensions autorisées :  jpeg, jpg, gif, png.";
                 }
-            } elseif (!in_array($_FILES['country_image']['type'], $allowedExtensions)) {
-                echo "Mauvaise extension !";
             }
         }
 
@@ -374,6 +379,7 @@ class AdminController extends AbstractController
                 "categories" => $this->getCategories(),
                 "continents" => $this->getContinents(),
                 "countries" => $this->getCountries(),
+                "error" => $error
 
             ]);
     }
@@ -384,6 +390,7 @@ class AdminController extends AbstractController
     public function countriesEdit(int $id): string
     {
         $this->isLog();
+        $error = '';
         $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
         $countriesManager = new CountriesManager();
         $countries = $countriesManager->selectOneById($id);
@@ -395,7 +402,7 @@ class AdminController extends AbstractController
             if (!empty($_FILES)) {
                 if (in_array($_FILES['country_image']['type'], $allowedExtensions)) {
                     if ($_FILES['country_image']['size'] > 1000000) {
-                        return $_FILES['country_image']['name'] . "est trop lourd";
+                        $error = "Ce fichier trop lourd !";
                     } else {
                         $tmpFilePath = $_FILES['country_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -409,19 +416,21 @@ class AdminController extends AbstractController
                                 $countries['name'] = $_POST["country_name"];
                                 $countries['continent_id'] = $_POST["country_continent_id"];
                                 $countries['image'] = $_POST["country_image"];
-
                                 if ($countriesManager->updateCountry($countries)) {
                                     header("Location:/Admin/countriesList");
                                 }
                             }
                         }
                     }
+                } elseif (!in_array($_FILES['country_image']['type'], $allowedExtensions)) {
+                     $error = "Ce fichier a une mauvaise extension. Extensions autorisées :  jpeg, jpg, gif, png.";
                 }
             }
         }
         return $this->twig->render('Admin/countries_edit.html.twig', ['countries' => $countries,
             "categories" => $this->getCategories(),
             "continents" => $this->getContinents(),
+            "error" => $error
         ]);
     }
 
