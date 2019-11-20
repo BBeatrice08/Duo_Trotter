@@ -11,6 +11,9 @@ class CategoriesManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+    /**
+     * Insert into the table category in database a new category
+    */
     public function insertCategory(array $category): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (name) VALUES 
@@ -20,6 +23,9 @@ class CategoriesManager extends AbstractManager
         return $request->execute();
     }
 
+    /**
+     * Modify a category by ID in table category in database
+    */
     public function update(array $categories):bool
     {
         $statement = $this->pdo->prepare("UPDATE $this->table SET `name` = :name WHERE id=:id");
@@ -29,6 +35,9 @@ class CategoriesManager extends AbstractManager
         return $statement->execute();
     }
 
+    /**
+     * Delete a category by ID in table category in database
+    */
     public function delete(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM $this->table WHERE id=:id");

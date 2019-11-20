@@ -11,10 +11,13 @@ class CommentsManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
+    /**
+     * Get all comments by article by ID from database
+    */
     public function listComment(): array
     {
         $request = $this->pdo->prepare("
-        SELECT c.date, c.user_name, c.content, a.title
+        SELECT c.id, c.date, c.user_name, c.content, a.title
         FROM ".self::TABLE." c
             JOIN ".ArticlesManager::TABLE." a ON c.articles_id = a.id
             ORDER BY a.id DESC
@@ -25,6 +28,9 @@ class CommentsManager extends AbstractManager
         return $request->fetchAll();
     }
 
+    /**
+     * Add a new comment in table comment in database by giving a user_name and a content.
+    */
     public function insertComment(array $comments): bool
     {
         $request = $this->pdo->prepare("INSERT INTO ".self::TABLE." (user_name, date, content, articles_id) VALUES
@@ -36,7 +42,10 @@ class CommentsManager extends AbstractManager
         return $request->execute();
     }
 
-    public function deleteComments(int $id)
+    /**
+     * Delete a comment by ID in table comments in database
+    */
+    public function deleteComments(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM ".self::TABLE." WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);

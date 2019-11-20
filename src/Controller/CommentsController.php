@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Controller\AbstractController;
 use App\Model\CommentsManager;
+use App\Model\CountriesManager;
 
 class CommentsController extends AbstractController
 {
+    /**
+     * Give the possibility to the visitor to post a comment on an article
+    */
     public function add(int $id): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -30,5 +34,14 @@ class CommentsController extends AbstractController
             "id" => $id,
 
         ]);
+    }
+
+    public function commentsDelete(int $id): void
+    {
+        $this->isLog();
+
+        $commentsManager = new CommentsManager();
+        $commentsManager->deleteComments($id);
+        header('Location:/Admin/commentsList');
     }
 }

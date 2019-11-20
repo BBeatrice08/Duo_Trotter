@@ -6,6 +6,9 @@ use App\Model\ArticlesManager;
 
 class ArticlesController extends AbstractController
 {
+    /**
+     * Show all articles
+    */
     public function list(): string
     {
         $articlesManager = new ArticlesManager();
@@ -17,6 +20,9 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    /**
+     * Show an article by ID
+    */
     public function show(int $id): string
     {
         $articlesManager = new ArticlesManager();
@@ -29,6 +35,9 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    /**
+     *  Show all articles by country by ID
+    */
     public function showByCountry(int $id): string
     {
         $articlesManager = new ArticlesManager();
@@ -40,6 +49,9 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    /**
+     * Show all articles by category by ID
+    */
     public function showByCategory(int $id): string
     {
         $articlesManager = new ArticlesManager();

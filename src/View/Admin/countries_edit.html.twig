@@ -3,7 +3,12 @@
 {% block content %}
     <div class ="main-container-add">
         <div class="form-group">
-            <form action="" method="POST" style="display:flex; flex-direction:column;">
+            <form action="" enctype="multipart/form-data" method="POST" style="display:flex; flex-direction:column;">
+                {% if error is not empty%}
+                    <div class = error>
+                        <h3>{{ error }}</h3>
+                    </div>
+                {% endif %}
                 <div class="form-group">
                     <label for="name">Entrez le nom du pays</label>
                     <input type="hidden" class="form-control" value="{{ countries.id }}" name="country_id" id="id">
@@ -16,6 +21,13 @@
                             <option value="{{ continent.id }}" {{ countries.continents_id == continent.id ? "selected" }} >{{ continent.name }}</option>
                         {% endfor %}
                     </select>
+                </div>
+                <div class="form-group" >
+                    Sélectionner une image pour ce pays : <input name="country_image" type="file" />
+                </div>
+                <div class = "current-image">
+                    <h3>Image actuelle</h3>
+                    <img src="{{ countries.image [9:] }}">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

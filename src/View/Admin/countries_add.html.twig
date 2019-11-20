@@ -3,8 +3,14 @@
 {% block title %} Add a country {% endblock %}
 
 {% block content %}
+
     <div class ="main-container-add">
-        <form action="" method="POST" style="display:flex; flex-direction:column;">
+        <form action="" enctype="multipart/form-data" method="POST" style="display:flex; flex-direction:column;">
+            {% if error is not empty%}
+                <div class = error>
+                <h3>{{ error }}</h3>
+                </div>
+            {% endif %}
             <div class="form-group">
                 <label for="name">Entrez le nom du pays</label>
                 <input type="text" class="form-control" name="country_name" id="name" placeholder="Entrez le nom du pays">
@@ -17,9 +23,8 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group">
-                <label for="image">Entrez une image pour ce pays</label>
-                <input type="text" class="form-control" name="country_image" id="image" placeholder="Entrez le lien d'une image">
+            <div class="form-group" >
+                Sélectionner une image pour ce pays : <input name="country_image" type="file" />
             </div>
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
