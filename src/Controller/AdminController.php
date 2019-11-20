@@ -79,7 +79,7 @@ class AdminController extends AbstractController
                     /* Size file allowed */
                     if ($_FILES['article_image']['size'] > 1000000) {
                         $send = false;
-                        echo $_FILES['article_image']['name'] . "est trop lourd";
+                        return $_FILES['article_image']['name'] . "est trop lourd";
                     } else {
                         $tmpFilePath = $_FILES['article_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -88,7 +88,6 @@ class AdminController extends AbstractController
                                 . '.' . $pathParts['extension'];
                             if (move_uploaded_file($tmpFilePath, $filePath)) {
                                 $send = true;
-                                echo "L'upload de " . $_FILES['article_image']['name'] . " s'est bien passé !";
                                 $articlesManager = new ArticlesManager();
                                 $_POST['article_image'] = $filePath;
                                 if ($articlesManager->insertArticle($_POST)) {
@@ -99,7 +98,7 @@ class AdminController extends AbstractController
                     }
                 }
             } elseif (!in_array($_FILES['article_image']['type'], $allowedExtensions)) {
-                echo "Mauvaise extension !";
+                return "Mauvaise extension !";
             }
         }
 
@@ -166,7 +165,7 @@ class AdminController extends AbstractController
                 if (in_array($_FILES['article_image']['type'], $allowedExtensions)) {
                     if ($_FILES['article_image']['size'] > 1000000) {
                         $send = false;
-                        echo $_FILES['article_image']['name'] . "est trop lourd";
+                        return $_FILES['article_image']['name'] . "est trop lourd";
                     } else {
                         $tmpFilePath = $_FILES['article_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -175,7 +174,7 @@ class AdminController extends AbstractController
                                 $pathParts['extension'];
                             if (move_uploaded_file($tmpFilePath, $filePath)) {
                                 $send = true;
-                                echo "L'upload de " . $_FILES['article_image']['name'] . " s'est bien passé !";
+
 
                                     $articlesManager = new ArticlesManager();
                                     $_POST['article_image'] = $filePath;
@@ -338,9 +337,7 @@ class AdminController extends AbstractController
     {
         $this->isLog();
         $allowedExtensions = ['image/jpg', 'image/png', 'image/gif', 'image/jpeg'];
-
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $send = true;
             if (empty($_POST["country_name"]) || !isset($_POST["country_name"])) {
                 $send = false;
             }
@@ -351,7 +348,7 @@ class AdminController extends AbstractController
             if (!empty($_FILES)) {
                 if (in_array($_FILES['country_image']['type'], $allowedExtensions)) {
                     if ($_FILES['country_image']['size'] > 1000000) {
-                        echo $_FILES['country_image']['name'] . "est trop lourd";
+                        return $_FILES['country_image']['name'] . "est trop lourd";
                     } else {
                         $tmpFilePath = $_FILES['country_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -359,7 +356,6 @@ class AdminController extends AbstractController
                             $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true) . '.' .
                                 $pathParts['extension'];
                             if (move_uploaded_file($tmpFilePath, $filePath)) {
-                                echo "L'upload de " . $_FILES['country_image']['name'] . " s'est bien passé !";
                                 $countriesManager = new CountriesManager();
                                 $_POST['country_image'] = $filePath;
                                 if ($countriesManager->insertCountry($_POST)) {
@@ -399,7 +395,7 @@ class AdminController extends AbstractController
             if (!empty($_FILES)) {
                 if (in_array($_FILES['country_image']['type'], $allowedExtensions)) {
                     if ($_FILES['country_image']['size'] > 1000000) {
-                        echo $_FILES['country_image']['name'] . "est trop lourd";
+                        return $_FILES['country_image']['name'] . "est trop lourd";
                     } else {
                         $tmpFilePath = $_FILES['country_image']['tmp_name'];
                         if ($tmpFilePath != "") {
@@ -407,8 +403,6 @@ class AdminController extends AbstractController
                             $filePath = uniqid("../public/assets/images/uploaded/" . 'image' . true) . '.' .
                                 $pathParts['extension'];
                             if (move_uploaded_file($tmpFilePath, $filePath)) {
-                                echo "L'upload de " . $_FILES['country_image']['name'] . " s'est bien passé !";
-
                                 $countriesManager = new CountriesManager();
                                 $_POST['country_image'] = $filePath;
                                 $countries['id'] = $_POST["country_id"];
