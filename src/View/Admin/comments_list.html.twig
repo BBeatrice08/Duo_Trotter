@@ -1,0 +1,22 @@
+{% extends "adminlayout.html.twig" %}
+
+{% block title %}Liste des commentaires{% endblock %}
+
+{% block content %}
+    {% for comment in comments %}
+        <div class = main-container-admin>
+            <div class = main-container-admin-1>
+
+                {{ comment.date }} /
+                <strong>{{ comment.title }}</strong> /
+                {{ comment.user_name }} /
+                {{ comment.content }}
+                {{ articles.id }}
+
+            </div>
+            <div class = main-container-admin-2>
+                <a href="{{ "/Admin/commentsDelete/" ~ comment.id }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

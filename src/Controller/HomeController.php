@@ -8,6 +8,8 @@
 
 namespace App\Controller;
 
+use App\Model\ArticlesManager;
+
 class HomeController extends AbstractController
 {
 
@@ -19,8 +21,17 @@ class HomeController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function index()
+    public function index(): string
     {
-        return $this->twig->render('Home/index.html.twig');
+        /**
+         * In home page, give the 5 lasts articles published, categories and countries mixed
+        */
+        $articlesManager = new ArticlesManager();
+        $articles = $articlesManager->selectAllLimit(5);
+        return $this->twig->render('Articles/list.html.twig', [
+            "articles" => $articles,
+            "categories" => $this->getCategories(),
+            "continents" => $this->getContinents(),
+        ]);
     }
 }

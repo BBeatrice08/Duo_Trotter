@@ -1,0 +1,32 @@
+{% extends "adminlayout.html.twig" %}
+
+{% block title %} Add a country {% endblock %}
+
+{% block content %}
+
+    <div class ="main-container-add">
+        <form action="" enctype="multipart/form-data" method="POST" style="display:flex; flex-direction:column;">
+            {% if error is not empty%}
+                <div class = error>
+                <h3>{{ error }}</h3>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                <label for="name">Entrez le nom du pays</label>
+                <input type="text" class="form-control" name="country_name" id="name" placeholder="Entrez le nom du pays">
+            </div>
+            <div class="form-group">
+                <label for="continent">Sélectionnez un continent pour ce pays</label>
+                <select name="country_continents_id" class="form-control" id="continent">
+                    {% for continent in continents %}
+                        <option value="{{ continent.id }}">{{ continent.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group" >
+                Sélectionner une image pour ce pays : <input name="country_image" type="file" />
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Tous les thèmes{% endblock %}
+
+{% block content %}
+    <div class = "articles-list">
+        {% if articles is empty %}
+            <h2>Il n'y a pas encore d'articles pour cette catégorie !</h2>
+        {% else %}
+            {% for article in articles %}
+                <div class="article-card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{{ article.image[9:] }}" class="card-img" alt="Image d'illustration {{ article.title }}">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ article.title }}</h5>
+                                    <p class="card-text">{{ article.content|slice(0, 150) }}...</p>
+                                    <p class="card-date"><small class="text-muted">{{ article.date }}</small></p>
+                                    <div class="flex-button">
+                                        <a href="{{ "/articles/show/" ~ article.id }}"><button type="button" class="btn btn-primary btn-sm button-center">Lire l'article</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

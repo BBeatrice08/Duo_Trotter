@@ -1,0 +1,15 @@
+{% extends "adminlayout.html.twig" %}
+
+{% block title %} Add a category {% endblock %}
+
+{% block content %}
+    <div class ="main-container-add">
+        <form action="" method="POST" style="display:flex; flex-direction:column;">
+            <div class="form-group">
+                <label for="name">Entrez le nom de la catégorie</label>
+                <input type="text" class="form-control" name="category_name" id="name" placeholder="Entrez le nom de la catégorie">
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

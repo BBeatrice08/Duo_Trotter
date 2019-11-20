@@ -1,0 +1,17 @@
+{% extends "adminlayout.html.twig" %}
+
+{% block title %}Liste des pays{% endblock %}
+
+{% block content %}
+    {% for country in countries %}
+        <div class = main-container-admin>
+            <div class = main-container-admin-1>
+                {{ country.name }}
+            </div>
+            <div class = main-container-admin-2>
+                <a href="{{ "/Admin/countriesEdit/" ~ country.id }}"><button type="button" class="btn btn-primary">Editer</button></a>
+                <a href="{{ "/Admin/countriesDelete/" ~ country.id }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
